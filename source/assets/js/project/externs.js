@@ -97,3 +97,12 @@ createjs.LoadQueue.off = {};
 createjs.LoadQueue.setMaxConnections = {};
 createjs.LoadQueue.loadManifest = {};
 createjs.LoadQueue.removeAllEventListeners = {};
+
+/* Node Webkit */
+var require = {};
+var process = {};
+var gui = {};
+gui.Menu = {};
+gui.Menu.createMacBuiltin = {};
+gui.Window = {};
+gui.Window.get = {};

@@ -1,9 +1,122 @@
 @import "global";
 
 body{
-	&:before{
-		content: "";
-		display: block;
-		@include retina-icon("joeonmars");
+	font-size: 62.5%;
+}
+
+main{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: #dfdfdf;
+
+	#board-container{
+		@include flexbox((
+			display: flex,
+			align-items: center,
+			justify-content: center
+		));
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		text-align: center;
+	}
+
+	#window-editor-container{
+		position: absolute;
+		width: 0;
+		height: 0;
+	}
+}
+
+.board{
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	width: 100px;
+	height: 100px;
+	background-color: #fff;
+	@include box-shadow(2px 2px 2px rgba(0,0,0,.1));
+
+	>.layer{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+
+		&.selection{
+			width: 0;
+			height: 0;
+		}
+
+		&.grid{
+			pointer-events: none;
+		}
+	}
+}
+
+.editor-window{
+	position: absolute;
+	min-width: 200px;
+	text-align: left;
+	@include box-shadow(2px 2px 2px rgba(0,0,0,.1));
+
+	&.hide-property{
+		>.property-sheet{
+			display: none;
+		}
+	}
+
+	>.title-bar{
+		position: relative;
+		width: 100%;
+		background: #9d9d9d;
+		cursor: move;
+		padding: .65em 10px;
+		@include box-sizing(border-box);
+		@include flexbox((
+			display: flex,
+			align-items: center,
+			justify-content: space-between
+		));
+
+		>h6{
+			color: #000;
+			font-size: 1.4em;
+		}
+
+		>.controls{
+			>button{
+				display: inline-block;
+				vertical-align: middle;
+				margin: 0 6px;
+				font-size: 8px;
+
+				&:last-child{
+					margin-right: 0;
+				}
+			}
+		}
+	}
+
+	>.property-sheet{
+		background: #ededed;
+		padding: 1em 0;
+
+		>li{
+			width: 100%;
+			padding: .4em 10px;
+			@include box-sizing(border-box);
+			font-size: 1.3em;
+			@include flexbox((
+				display: flex,
+				align-items: center,
+				justify-content: space-between
+			));
+
+			>input{
+				text-indent: .25em;
+				width: 4em;
+			}
+		}
 	}
 }

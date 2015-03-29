@@ -1,0 +1,24 @@
+{
+	"title": "Board",
+	"width": {
+		"title": "Width",
+		"value": 640,
+		"editor": "integer",
+		"min": 1,
+		"max": 10000
+	},
+	"height": {
+		"title": "Height",
+		"value": 480,
+		"editor": "integer",
+		"min": 1,
+		"max": 10000
+	},
+	"background-color": {
+		"title": "Background",
+		"value": "#ffffff",
+		"editor": "color"
+	},
+	"shortcuts": ["zoom-in", "zoom-out"],
+	"editable": true
+}

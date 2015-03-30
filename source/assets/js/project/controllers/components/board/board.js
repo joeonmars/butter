@@ -1,6 +1,6 @@
 goog.provide('btr.controllers.components.board.Board');
 
-goog.require('btr.controllers.components.Component');
+goog.require('btr.controllers.basics.Component');
 
 
 /**
@@ -12,5 +12,7 @@ btr.controllers.components.board.Board = function( model ) {
 
 	goog.base(this, model);
 
+	this.isShortcutEnabled = true;
+	this.isEditable = true;
 };
-goog.inherits(btr.controllers.components.board.Board, btr.controllers.components.Component);
+goog.inherits(btr.controllers.components.board.Board, btr.controllers.basics.Component);

@@ -2,7 +2,6 @@ goog.provide('btr.models.Component');
 
 goog.require('goog.Disposable');
 goog.require('goog.object');
-goog.require('goog.net.XhrIo');
 goog.require('goog.json.Serializer');
 
 
@@ -20,10 +19,8 @@ btr.models.Component = function( name ) {
 	this._data = {};
 	this._defaultData = null;
 
-	var dataUrl = btr.config.dataURL[this.name];
-	if(dataUrl) {
-		goog.net.XhrIo.send(dataUrl, goog.bind(this.onDataLoad, this));
-	}
+	var data = btr.appLoader.getAsset(this.name);
+	this.applyData( data ? data[this.name] : {} );
 };
 goog.inherits(btr.models.Component, goog.Disposable);
 
@@ -49,18 +46,6 @@ btr.models.Component.prototype.getData = function() {
 btr.models.Component.prototype.getDefaultData = function() {
 
 	return this._defaultData;
-};
-
-
-btr.models.Component.prototype.getEditableData = function() {
-
-	var result = goog.object.filter(this._defaultData, function(data, name) {
-		if(goog.isObject(data) && data['editor']) {
-			return true;
-		}
-	});
-
-	return result;
 };
 
 
@@ -105,15 +90,8 @@ btr.models.Component.prototype.applyData = function(data) {
 		this.set(name, _value);
 
 	}, this);
-};
 
-
-btr.models.Component.prototype.onDataLoad = function(e) {
-
-	var data = JSON.parse( e.target.getResponse() );
-	this.applyData( data );
-
-	console.log(this.name + ' model data loaded.', this.serialize());
+	console.log('"' + this.name + '" data loaded.', this.serialize());
 };
 
 

@@ -1,0 +1,26 @@
+{
+	"id": "grid",
+	"grid": {
+		"title": "Grid",
+		"size": {
+			"title": "Size",
+			"value": 10,
+			"editor": "integer",
+			"min": 2,
+			"max": 50
+		},
+		"color": {
+			"title": "Color",
+			"value": "#000000",
+			"editor": "color"
+		},
+		"opacity": {
+			"title": "Opacity",
+			"value": 0.1,
+			"editor": "numberrange",
+			"min": 0,
+			"max": 0.5
+		},
+		"shortcuts": ["toggle-grid"]
+	}
+}

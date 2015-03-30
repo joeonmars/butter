@@ -1,0 +1,8 @@
+{
+	"id": "shortcuts",
+	"shortcuts": {
+		"zoom-in": "cmd+equals",
+		"zoom-out": "cmd+dash",
+		"toggle-grid": "`"
+	}
+}

@@ -60,7 +60,8 @@ btr.templates.Main.IntegerField = function(opt_data, opt_ignored) {
   var value__soy24 = opt_data.data['value'];
   var min__soy25 = opt_data.data['min'];
   var max__soy26 = opt_data.data['max'];
-  output += '<input class="field" type="number" step="1" value="' + value__soy24 + '" ' + ((min__soy25) ? 'min="' + min__soy25 + '"' : '') + ' ' + ((max__soy26) ? 'max="' + max__soy26 + '"' : '') + ' data-id="' + opt_data.name + '">';
+  var type__soy27 = (opt_data.data['editor'] == 'integer') ? 'number' : (opt_data.data['editor'] == 'integerrange') ? 'range' : '';
+  output += '<input class="field" type="' + type__soy27 + '" step="1" value="' + value__soy24 + '" ' + ((min__soy25 != null) ? 'min="' + min__soy25 + '"' : '') + ' ' + ((max__soy26 != null) ? 'max="' + max__soy26 + '"' : '') + ' data-id="' + opt_data.name + '">';
   return output;
 };
 
@@ -73,10 +74,11 @@ btr.templates.Main.IntegerField = function(opt_data, opt_ignored) {
  */
 btr.templates.Main.NumberField = function(opt_data, opt_ignored) {
   var output = '';
-  var value__soy45 = opt_data.data['value'];
-  var min__soy46 = opt_data.data['min'];
-  var max__soy47 = opt_data.data['max'];
-  output += '<input class="field" type="number" step="0.1" value="' + value__soy45 + '" ' + ((min__soy46) ? 'min="' + min__soy46 + '"' : '') + ' ' + ((max__soy47) ? 'max="' + max__soy47 + '"' : '') + ' data-id="' + opt_data.name + '">';
+  var value__soy53 = opt_data.data['value'];
+  var min__soy54 = opt_data.data['min'];
+  var max__soy55 = opt_data.data['max'];
+  var type__soy56 = (opt_data.data['editor'] == 'number') ? 'number' : (opt_data.data['editor'] == 'numberrange') ? 'range' : '';
+  output += '<input class="field" type="' + type__soy56 + '" step="0.01" value="' + value__soy53 + '" ' + ((min__soy54 != null) ? 'min="' + min__soy54 + '"' : '') + ' ' + ((max__soy55 != null) ? 'max="' + max__soy55 + '"' : '') + ' data-id="' + opt_data.name + '">';
   return output;
 };
 
@@ -89,7 +91,7 @@ btr.templates.Main.NumberField = function(opt_data, opt_ignored) {
  */
 btr.templates.Main.ColorField = function(opt_data, opt_ignored) {
   var output = '';
-  var value__soy66 = opt_data.data['value'];
-  output += '<input class="field" type="color" value="' + value__soy66 + '" data-id="' + opt_data.name + '">';
+  var value__soy82 = opt_data.data['value'];
+  output += '<input class="field" type="color" value="' + value__soy82 + '" data-id="' + opt_data.name + '">';
   return output;
 };

@@ -8,16 +8,15 @@ goog.require('btr.views.components.Component');
 /**
  * Base board view.
  * @constructor
- * @param {function():*} template The view template
- * @param {btr.models.Component} model The view model
  */
-btr.views.components.board.Board = function( template, model ) {
+btr.views.components.board.Board = function( model, template, opt_element ) {
 
-	goog.base(this, template, model);
+	goog.base(this, model, template, opt_element);
 
 	this.size = new goog.math.Size();
 
 	this.parentElement = goog.dom.getElement('board-container');
+	this.hotspotElement = this.query('.layer.components')[0];
 };
 goog.inherits(btr.views.components.board.Board, btr.views.components.Component);
 

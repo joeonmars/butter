@@ -2,9 +2,11 @@ goog.provide('btr.apps.Main');
 
 goog.require('goog.dom');
 goog.require('goog.fx.anim');
+goog.require('btr.controllers.globals.AppLoader');
+goog.require('btr.controllers.globals.ShortcutManager');
 goog.require('btr.models.Config');
 goog.require('btr.templates.Main');
-goog.require('btr.models.Component');
+goog.require('btr.controllers.componentgroups.BoardGroup');
 
 
 btr.apps.Main = function() {
@@ -14,13 +16,20 @@ btr.apps.Main = function() {
 	var helloWorld = soy.renderAsFragment(btr.templates.Main.HelloWorld);
 	goog.dom.appendChild(document.body, helloWorld);
 
-	btr.config = btr.models.Config.getInstance();
+	btr.appLoader = new btr.controllers.globals.AppLoader(function(json) {
 
-	// test
-	var model = new btr.models.Component('board');
+		console.log("APP LOADED.", json);
 
-	var controller = new btr.config.constructors.controllers[model.name](model);
-	controller.add();
+		btr.config = btr.models.Config.getInstance();
+
+		btr.shortcuts = btr.controllers.globals.ShortcutManager.getInstance();
+
+		// test
+		var boardGroup = new btr.controllers.componentgroups.BoardGroup;
+		boardGroup.add();
+	});
+
+	btr.appLoader.load();
 };
 
 

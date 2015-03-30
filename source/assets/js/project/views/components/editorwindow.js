@@ -9,12 +9,10 @@ goog.require('btr.views.components.Component');
 /**
  * Editor Window view.
  * @constructor
- * @param {function():*} template The view template
- * @param {btr.models.Component} model The view model
  */
-btr.views.components.EditorWindow = function( template, model ) {
+btr.views.components.EditorWindow = function( model, template, opt_element ) {
 
-	goog.base(this, template, model);
+	goog.base(this, model, template, opt_element);
 
 	this.parentElement = goog.dom.getElement('window-editor-container');
 
@@ -30,10 +28,12 @@ btr.views.components.EditorWindow = function( template, model ) {
 		
 		switch(fieldType) {
 			case 'integer':
+			case 'integerrange':
 			template = btr.templates.Main.IntegerField;
 			break;
 
 			case 'number':
+			case 'numberrange':
 			template = btr.templates.Main.NumberField;
 			break;
 
@@ -68,9 +68,9 @@ btr.views.components.EditorWindow = function( template, model ) {
 goog.inherits(btr.views.components.EditorWindow, btr.views.components.Component);
 
 
-btr.views.components.EditorWindow.prototype.activate = function() {
+btr.views.components.EditorWindow.prototype.doActivate = function() {
 
-	goog.base(this, 'activate');
+	goog.base(this, 'doActivate');
 
 	goog.array.forEach(this._fieldEls, function(fieldEl) {
 		this._eventHandler.listen(fieldEl, goog.events.EventType.CHANGE, this.dispatchEvent, false, this);

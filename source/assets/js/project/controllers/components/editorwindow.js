@@ -1,7 +1,7 @@
 goog.provide('btr.controllers.components.EditorWindow');
 
 goog.require('goog.fx.Dragger');
-goog.require('btr.controllers.components.Component');
+goog.require('btr.controllers.basics.Component');
 goog.require('btr.views.components.EditorWindow');
 
 
@@ -16,12 +16,12 @@ btr.controllers.components.EditorWindow = function( model ) {
 
 	this._dragger = new goog.fx.Dragger(this.view.element, this.view.titleBar);
 };
-goog.inherits(btr.controllers.components.EditorWindow, btr.controllers.components.Component);
+goog.inherits(btr.controllers.components.EditorWindow, btr.controllers.basics.Component);
 
 
-btr.controllers.components.EditorWindow.prototype.activate = function() {
+btr.controllers.components.EditorWindow.prototype.doActivate = function() {
 
-	goog.base(this, 'activate');
+	goog.base(this, 'doActivate');
 
 	this._eventHandler.listen(this, goog.events.EventType.CHANGE, this.onFieldChange, false, this);
 	this._eventHandler.listen(this, goog.events.EventType.CLICK, this.onClick, false, this);

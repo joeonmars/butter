@@ -25,24 +25,27 @@ btr.controllers.services.HtmlExport.prototype.exportFrom = function(dest) {
 
 	var fs = require('fs-extra');
 
-	var path = './cache/pages/index.html';
-	var content = html;
+  var templateDir = './assets/page_template';
+  var destDir = './cache/pages';
 
-	fs.writeFile(path, content, function(err) {
-	  if(err) {
-	  	throw err;
+  fs.copy(templateDir, destDir, function (err) {
+
+	  if (err) {
+
+	    throw err;
+
+	  } else {
+
+	    console.log("template was successfully copied!");
+
+			var path = './cache/pages/index.html';
+
+			fs.writeFile(path, html, function(err) {
+			  if(err) {
+			  	throw err;
+			  }
+			  console.log("index.html was saved!");
+			});
 	  }
-	  console.log("index.html was saved!");
-
-	  var templateDir = './assets/page_template';
-	  var destDir = './cache/pages';
-
-	  fs.copy(templateDir, destDir, function (err) {
-		  if (err) {
-		    throw err;
-		  } else {
-		    console.log("template was successfully copied!");
-		  }
-		});
 	});
 };

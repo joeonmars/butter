@@ -24,6 +24,6 @@ btr.templates.Generation.MainPage = function(opt_data, opt_ignored) {
  * @return {string}
  * @notypecheck
  */
-btr.templates.Generation.Content = function(opt_data, opt_ignored) {
+btr.templates.Generation.MainContent = function(opt_data, opt_ignored) {
   return '<!-- page content --><div></div>';
 };

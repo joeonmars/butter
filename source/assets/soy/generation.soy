@@ -1,0 +1,32 @@
+{namespace btr.templates.Generation autoescape="false"}
+
+/**
+ * The main html page
+ */
+{template .MainPage}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="assets/styles/css/main.css">
+  </head>
+  <body>
+    <!-- run js -->
+    <script src="assets/js/main.js"></script>
+    <script>
+    	main();
+    </script>
+  </body>
+</html>
+{/template}
+
+
+/**
+ * The main page content
+ */
+{template .MainContent}
+<!-- page content -->
+<div>
+</div>
+{/template}

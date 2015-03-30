@@ -55,12 +55,6 @@ btr.models.Component.prototype.extend = function(object) {
 };
 
 
-btr.models.Component.prototype.delete = function(key) {
-
-	delete this._data[key];
-};
-
-
 btr.models.Component.prototype.deserialize = function(opt_str) {
 
 	return goog.json.parse( opt_str || this.serialize() );

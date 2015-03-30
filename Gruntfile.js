@@ -49,7 +49,7 @@ module.exports = function(grunt) {
       },
       js: {
         files: ['<%= projectJsDir %>/**/*.js'],
-        tasks: ['closureDepsWriter'],
+        tasks: ['closureDepsWriter', 'closureBuilder:generation', 'closureCompiler:generation'],
         options: {
           livereload: true,
           interrupt: true,
@@ -98,7 +98,7 @@ module.exports = function(grunt) {
           {expand: true, cwd: 'source/', src: [
             '**',
             '!assets/js/project/**',
-            '!assets/js/output/btr-build.js',
+            '!assets/js/output/butterapp-build.js',
             '!assets/js/output/btr-deps.js',
             '!assets/js/thirdparty/**',
             '!assets/styles/scss/**',
@@ -113,8 +113,9 @@ module.exports = function(grunt) {
     },
 
     compass: {
-      development: {
+      app: {
         options: {
+          specify: 'source/assets/styles/scss/btr.scss',
           sassDir: 'source/assets/styles/scss',
           cssDir: 'source/assets/styles/css',
           fontsDir: 'source/assets/styles/fonts',
@@ -128,6 +129,22 @@ module.exports = function(grunt) {
           environment: 'development'
         }
       },
+      generation: {
+        options: {
+          specify: 'source/assets/styles/scss/generation/main.scss',
+          sassDir: 'source/assets/styles/scss/generation',
+          cssDir: 'source/assets/page_template/assets/styles/css',
+          fontsDir: 'source/assets/page_template/assets/styles/fonts',
+          imagesDir: 'source/assets/images',
+          generatedImagesDir: 'source/assets/page_template/assets/images/generated',
+          relativeAssets: true,
+          noLineComments: true,
+          assetCacheBuster: true,
+          watch: false,
+          outputStyle: 'expanded', //nested, expanded, compact, compressed
+          environment: 'development'
+        }
+      }
     },
 
     webfont: {
@@ -173,14 +190,23 @@ module.exports = function(grunt) {
     },
 
     closureBuilder:  {
-      options: {
-        builder: '<%= closureDir %>/closure/bin/build/closurebuilder.py',
-        inputs: '<%= projectJsDir %>/btr.js',
+
+      butterapp: {
+        options: {
+          builder: '<%= closureDir %>/closure/bin/build/closurebuilder.py',
+          inputs: ['<%= projectJsDir %>/btr.js', '<%= projectJsDir %>/apps/generation.js']
+        },
+        src: ['<%= closureDir %>', '<%= projectJsDir %>'],
+        dest: '<%= outputJsDir %>/butterapp-build.js'
       },
 
-      main: {
+      generation: {
+        options: {
+          builder: '<%= closureDir %>/closure/bin/build/closurebuilder.py',
+          inputs: ['<%= projectJsDir %>/apps/generation.js']
+        },
         src: ['<%= closureDir %>', '<%= projectJsDir %>'],
-        dest: '<%= outputJsDir %>/btr-build.js'
+        dest: '<%= outputJsDir %>/generation-build.js'
       }
     },
 
@@ -189,7 +215,6 @@ module.exports = function(grunt) {
         compilerFile: 'utils/compiler.jar',
         checkModified: true,
         compilerOpts: {
-           compilation_level: 'ADVANCED_OPTIMIZATIONS',//WHITESPACE_ONLY, SIMPLE_OPTIMIZATIONS, ADVANCED_OPTIMIZATIONS
            externs: ['<%= projectJsDir %>/externs.js'],
            define: ["'goog.DEBUG=false'"],
            warning_level: 'verbose',
@@ -201,9 +226,16 @@ module.exports = function(grunt) {
         },
       },
 
-      main: {
-        src: '<%= outputJsDir %>/btr-build.js',
-        dest: '<%= outputJsDir %>/btr-compiled.js'
+      butterapp: {
+        compilation_level: 'ADVANCED_OPTIMIZATIONS',//WHITESPACE_ONLY, SIMPLE_OPTIMIZATIONS, ADVANCED_OPTIMIZATIONS
+        src: '<%= outputJsDir %>/butterapp-build.js',
+        dest: '<%= outputJsDir %>/butterapp-compiled.js'
+      },
+
+      generation: {
+        compilation_level: 'WHITESPACE_ONLY',
+        src: '<%= outputJsDir %>/generation-build.js',
+        dest: 'source/assets/page_template/assets/js/main.js'
       }
     }
 

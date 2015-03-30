@@ -1,7 +1,11 @@
 /.sass-cache
+/source/node_modules
+/release
 /node_modules
 /bower_components
 /source/assets/js/thirdparty/closure-library
+/source/cache/pages
+/source/cache/shots
 *.DS_Store
 *.sublime-workspace
 *.scssc

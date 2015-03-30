@@ -1,4 +1,4 @@
-goog.provide('btr.apps.Main');
+goog.provide('btr.apps.ButterApp');
 
 goog.require('goog.dom');
 goog.require('goog.fx.anim');
@@ -7,9 +7,11 @@ goog.require('btr.controllers.globals.ShortcutManager');
 goog.require('btr.models.Config');
 goog.require('btr.templates.Main');
 goog.require('btr.controllers.componentgroups.BoardGroup');
+goog.require('btr.controllers.services.ImageExport');
+goog.require('btr.controllers.services.HtmlExport');
 
 
-btr.apps.Main = function() {
+btr.apps.ButterApp = function() {
 
 	goog.fx.anim.setAnimationWindow(window);
 
@@ -24,6 +26,12 @@ btr.apps.Main = function() {
 
 		btr.shortcuts = btr.controllers.globals.ShortcutManager.getInstance();
 
+		btr.imageExport = btr.controllers.services.ImageExport.getInstance();
+		btr.imageExport.exportFrom();
+
+		btr.htmlExport = btr.controllers.services.HtmlExport.getInstance();
+		btr.htmlExport.exportFrom();
+
 		// test
 		var boardGroup = new btr.controllers.componentgroups.BoardGroup;
 		boardGroup.add();
@@ -32,41 +40,39 @@ btr.apps.Main = function() {
 	btr.appLoader.load();
 };
 
-
-btr.gui = window.require ? require('nw.gui') : null;
-
+btr.isNative = goog.isDef(window.require);
 
 // init node-webkit app settings
-if(btr.gui) {
+if(btr.isNative) {
 
-	var gui = btr.gui;
+	var _gui = require('nw.gui');
 
 	if(process.platform === "darwin") {
 
-		var menubar = new gui.Menu({type: 'menubar'});
+		var menubar = new _gui.Menu({type: 'menubar'});
 		menubar.createMacBuiltin('RoboPaint', {
 			'hideEdit': false
 		});
 
-		gui.Window.get()['menu'] = menubar;
+		_gui.Window.get()['menu'] = menubar;
 
-		var menu = new gui.Menu();
+		var menu = new _gui.Menu();
 
-		var cut = new gui.MenuItem({
+		var cut = new _gui.MenuItem({
 			label: "Cut"
 			, click: function() {
 			  document.execCommand("cut");
 			}
 		});
 
-		var copy = new gui.MenuItem({
+		var copy = new _gui.MenuItem({
 			label: "Copy"
 			, click: function() {
 			  document.execCommand("copy");
 			}
 		});
 
-		var paste = new gui.MenuItem({
+		var paste = new _gui.MenuItem({
 			label: "Paste"
 			, click: function() {
 			  document.execCommand("paste");

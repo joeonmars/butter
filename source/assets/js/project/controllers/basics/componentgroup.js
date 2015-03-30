@@ -1,8 +1,8 @@
 goog.provide('btr.controllers.basics.ComponentGroup');
 
 goog.require('goog.array');
-goog.require('btr.controllers.basics.Component');
 goog.require('btr.models.Component');
+goog.require('btr.controllers.basics.Element');
 
 
 /**

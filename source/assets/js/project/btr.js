@@ -1,6 +1,7 @@
 goog.provide('btr');
 
-goog.require('btr.apps.Main');
+goog.require('btr.apps.ButterApp');
+goog.require('btr.apps.Generation');
 
 
 btr.Config = {};
@@ -11,8 +12,12 @@ btr.init = function( config ) {
 	btr.Config = config;
 	
 	switch(btr.Config['app']) {
-		case 'main':
-		btr.apps.Main();
+		case 'butterapp':
+		btr.apps.ButterApp();
+		break;
+
+		case 'generation':
+		btr.apps.Generation();
 		break;
 	};
 };

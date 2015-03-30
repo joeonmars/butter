@@ -28,9 +28,9 @@ btr.controllers.basics.Component = function( model, opt_view, opt_template, opt_
 	this.isShortcutEnabled = false;
 	this.isEditable = false;
 
-  	this._editorWindow = null;
+  this._editorWindow = null;
 
-  	this._handleShortcut = goog.bind(this.handleShortcut, this);
+  this._handleShortcut = goog.bind(this.handleShortcut, this);
 	this._onDataChange = goog.bind(this.onDataChange, this);
 };
 goog.inherits(btr.controllers.basics.Component, btr.controllers.basics.Element);
@@ -52,7 +52,7 @@ btr.controllers.basics.Component.prototype.doActivate = function() {
 		this.refreshEditorWindow();
 	}
 
-  	this._eventHandler.listen(this, goog.events.EventType.CONTEXTMENU, this.onContextMenuTriggered, false, this);
+  this._eventHandler.listen(this, goog.events.EventType.CONTEXTMENU, this.onContextMenuTriggered, false, this);
 };
 
 

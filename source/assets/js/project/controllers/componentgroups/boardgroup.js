@@ -34,3 +34,10 @@ btr.controllers.componentgroups.BoardGroup.prototype.createComponent = function(
 
 	return component;
 };
+
+
+btr.controllers.componentgroups.BoardGroup.prototype.setIndex = function(index) {
+
+	var board = this.getComponent('board');
+	board.model.set('index', index);
+};

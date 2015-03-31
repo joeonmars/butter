@@ -1,4 +1,4 @@
-goog.provide('btr.controllers.services.ImageExport');
+goog.provide('btr.services.ImageExport');
 
 goog.require('goog.events.EventTarget');
 
@@ -7,23 +7,23 @@ goog.require('goog.events.EventTarget');
  * Image Export service controller, export boards as images for internal or external use.
  * @constructor
  */
-btr.controllers.services.ImageExport = function() {
+btr.services.ImageExport = function() {
 
 	goog.base(this);
 
 };
-goog.inherits(btr.controllers.services.ImageExport, goog.events.EventTarget);
-goog.addSingletonGetter(btr.controllers.services.ImageExport);
+goog.inherits(btr.services.ImageExport, goog.events.EventTarget);
+goog.addSingletonGetter(btr.services.ImageExport);
 
 
-btr.controllers.services.ImageExport.prototype.exportFrom = function(dest) {
+btr.services.ImageExport.prototype.exportFrom = function(dest) {
 
 	if(!btr.isNative) return;
 
 	var Pageres = require('pageres');
 
 	var pageres = new Pageres({delay: 2})
-		.src('./assets/styles/scss/icons.html', ['1280x1024', '1920x1080'], {scale: 2})
+	  .src('./assets/styles/scss/icons.html', ['1280x1024', '1920x1080'], {scale: 2})
 	  .src('yeoman.io', ['480x320', '1024x768', 'iphone 5s'], {crop: true})
 	  .src('todomvc.com', ['1280x1024', '1920x1080'])
 	  .dest('./cache/shots');

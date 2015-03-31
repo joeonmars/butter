@@ -8,7 +8,7 @@ goog.require('btr.views.components.EditorWindow');
 /**
  * Editor Window component controller.
  * @constructor
- * @param {btr.models.Component} model The data model
+ * @param {btr.models.Model} model The data model
  */
 btr.controllers.components.EditorWindow = function( model ) {
 

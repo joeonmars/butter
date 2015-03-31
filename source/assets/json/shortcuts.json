@@ -1,5 +1,5 @@
 {
-	"id": "shortcuts",
+	"name": "shortcuts",
 	"shortcuts": {
 		"zoom-in": "cmd+equals",
 		"zoom-out": "cmd+dash",

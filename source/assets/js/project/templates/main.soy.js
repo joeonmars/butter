@@ -25,7 +25,7 @@ btr.templates.Main.HelloWorld = function(opt_data, opt_ignored) {
  * @notypecheck
  */
 btr.templates.Main.Board = function(opt_data, opt_ignored) {
-  return '<section class="board"><div class="layer components"></div><div class="layer grid"></div><div class="layer selection"></div></section>';
+  return '<section class="board-view"><div class="board"><div class="layer components"></div><div class="layer grid"></div><div class="layer selection"></div></div></section>';
 };
 
 

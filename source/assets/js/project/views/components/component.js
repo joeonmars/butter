@@ -9,7 +9,7 @@ goog.require('goog.events.EventHandler');
 /**
  * Base component view, dispatch UI events to controller.
  * @constructor
- * @param {btr.models.Component} model The view model
+ * @param {btr.models.Model} model The view model
  * @param {function():*} template The view template
  * @param {element} opt_element The dom element
  */
@@ -18,7 +18,9 @@ btr.views.components.Component = function(model, template, opt_element) {
 	goog.base(this);
 
 	this.model = model;
-
+	this.id = this.model.id;
+	this.name = name;
+	
 	this.element = opt_element || soy.renderAsFragment( template, {
 		data: model.getDefaultData()
 	});
@@ -106,5 +108,5 @@ btr.views.components.Component.prototype.disposeInternal = function() {
 
 btr.views.components.Component.prototype.onDataChange = function(name, newValue, oldValue) {
 
-	console.log(name, newValue, oldValue);
+	//console.log(name, newValue, oldValue);
 };

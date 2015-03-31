@@ -1,8 +1,8 @@
 goog.provide('btr.controllers.basics.ComponentGroup');
 
 goog.require('goog.array');
-goog.require('btr.models.Component');
-goog.require('btr.controllers.basics.Element');
+goog.require('btr.models.Model');
+goog.require('btr.controllers.basics.Controller');
 
 
 /**
@@ -13,22 +13,23 @@ goog.require('btr.controllers.basics.Element');
  */
 btr.controllers.basics.ComponentGroup = function( groupName, componentNames ) {
 
-	goog.base(this);
+	goog.base(this, groupName);
 
-	this.name = groupName;
-
+	this._componentsData = this.model.set('components', {});
 	this._components = {};
 
 	goog.array.forEach(componentNames, function(componentName) {
 
-		var model = new btr.models.Component( componentName );
+		var model = new btr.models.Model( componentName );
 		var constructor = btr.config.constructors.controllers[model.name];
 		var component = this.createComponent( constructor, model );
 
 		this._components[component.name] = component;
+		this._componentsData[component.model.id] = component.model.getData();
+		
 	}, this);
 };
-goog.inherits(btr.controllers.basics.ComponentGroup, btr.controllers.basics.Element);
+goog.inherits(btr.controllers.basics.ComponentGroup, btr.controllers.basics.Controller);
 
 
 btr.controllers.basics.ComponentGroup.prototype.createComponent = function(constructor, model) {

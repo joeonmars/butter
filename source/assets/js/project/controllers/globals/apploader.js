@@ -50,7 +50,7 @@ btr.controllers.globals.AppLoader.prototype.onLoad = function(e) {
 	var jsons = goog.array.map(e.target.getResponseTexts(), goog.json.unsafeParse);
 
 	goog.array.forEach(jsons, function(json) {
-		this._assets[json['id']] = json;
+		this._assets[json['name']] = json;
 	}, this);
 
 	goog.events.unlisten(this._loader, [goog.net.EventType.SUCCESS, goog.net.EventType.ERROR],

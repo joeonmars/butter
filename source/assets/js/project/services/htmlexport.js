@@ -1,4 +1,4 @@
-goog.provide('btr.controllers.services.HtmlExport');
+goog.provide('btr.services.HtmlExport');
 
 goog.require('goog.events.EventTarget');
 goog.require('btr.templates.Generation');
@@ -8,16 +8,16 @@ goog.require('btr.templates.Generation');
  * HTML Export service controller, export boards as HTML for internal or external use.
  * @constructor
  */
-btr.controllers.services.HtmlExport = function() {
+btr.services.HtmlExport = function() {
 
 	goog.base(this);
 
 };
-goog.inherits(btr.controllers.services.HtmlExport, goog.events.EventTarget);
-goog.addSingletonGetter(btr.controllers.services.HtmlExport);
+goog.inherits(btr.services.HtmlExport, goog.events.EventTarget);
+goog.addSingletonGetter(btr.services.HtmlExport);
 
 
-btr.controllers.services.HtmlExport.prototype.exportFrom = function(dest) {
+btr.services.HtmlExport.prototype.exportFrom = function(dest) {
 
 	if(!btr.isNative) return;
 

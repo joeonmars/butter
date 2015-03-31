@@ -4,11 +4,12 @@ goog.require('goog.dom');
 goog.require('goog.fx.anim');
 goog.require('btr.controllers.globals.AppLoader');
 goog.require('btr.controllers.globals.ShortcutManager');
+goog.require('btr.controllers.globals.BoardManager');
+goog.require('btr.controllers.componentgroups.BoardGroup');
 goog.require('btr.models.Config');
 goog.require('btr.templates.Main');
-goog.require('btr.controllers.componentgroups.BoardGroup');
-goog.require('btr.controllers.services.ImageExport');
-goog.require('btr.controllers.services.HtmlExport');
+goog.require('btr.services.ImageExport');
+goog.require('btr.services.HtmlExport');
 
 
 btr.apps.ButterApp = function() {
@@ -26,15 +27,21 @@ btr.apps.ButterApp = function() {
 
 		btr.shortcuts = btr.controllers.globals.ShortcutManager.getInstance();
 
-		btr.imageExport = btr.controllers.services.ImageExport.getInstance();
+		btr.imageExport = btr.services.ImageExport.getInstance();
 		btr.imageExport.exportFrom();
 
-		btr.htmlExport = btr.controllers.services.HtmlExport.getInstance();
+		btr.htmlExport = btr.services.HtmlExport.getInstance();
 		btr.htmlExport.exportFrom();
 
+		btr.boardManager = btr.controllers.globals.BoardManager.getInstance();
+
 		// test
-		var boardGroup = new btr.controllers.componentgroups.BoardGroup;
-		boardGroup.add();
+		for(var i = 0; i < 1; i++) {
+			var boardGroup = new btr.controllers.componentgroups.BoardGroup;
+			boardGroup.add();
+
+			btr.boardManager.addBoard( boardGroup );
+		}
 	});
 
 	btr.appLoader.load();

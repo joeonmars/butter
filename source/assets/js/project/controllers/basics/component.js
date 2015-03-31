@@ -1,24 +1,21 @@
 goog.provide('btr.controllers.basics.Component');
 
 goog.require('goog.array');
-goog.require('btr.controllers.basics.Element');
+goog.require('btr.controllers.basics.Controller');
 goog.require('btr.controllers.components.EditorWindow');
 
 
 /**
  * Basic component controller, listen for model(data) changes and update its view.
  * @constructor
- * @param {btr.models.Component} model The data model
+ * @param {btr.models.Model} model The data model
  * @param {function():*} opt_view The view constructor
  * @param {function():*} opt_template The template constructor
  * @param {Node} opt_element The dom element
  */
 btr.controllers.basics.Component = function( model, opt_view, opt_template, opt_element ) {
 
-	goog.base(this);
-
-	this.model = model;
-	this.name = this.model.name;
+	goog.base(this, model.name, model);
 
 	var ViewConstructor = opt_view || btr.config.constructors.views[ this.name ];
 	var ViewTemplate = opt_template || btr.config.constructors.templates[ this.name ];
@@ -28,12 +25,11 @@ btr.controllers.basics.Component = function( model, opt_view, opt_template, opt_
 	this.isShortcutEnabled = false;
 	this.isEditable = false;
 
-  this._editorWindow = null;
+	this._editorWindow = null;
 
-  this._handleShortcut = goog.bind(this.handleShortcut, this);
-	this._onDataChange = goog.bind(this.onDataChange, this);
+	this._handleShortcut = goog.bind(this.handleShortcut, this);
 };
-goog.inherits(btr.controllers.basics.Component, btr.controllers.basics.Element);
+goog.inherits(btr.controllers.basics.Component, btr.controllers.basics.Controller);
 
 
 btr.controllers.basics.Component.prototype.doActivate = function() {
@@ -52,7 +48,7 @@ btr.controllers.basics.Component.prototype.doActivate = function() {
 		this.refreshEditorWindow();
 	}
 
-  this._eventHandler.listen(this, goog.events.EventType.CONTEXTMENU, this.onContextMenuTriggered, false, this);
+	this._eventHandler.listen(this, goog.events.EventType.CONTEXTMENU, this.onContextMenuTriggered, false, this);
 };
 
 
@@ -74,7 +70,6 @@ btr.controllers.basics.Component.prototype.doDeactivate = function() {
 
 btr.controllers.basics.Component.prototype.disposeInternal = function() {
 
-	this.model.dispose();
 	this.view.dispose();
 
 	goog.base(this, 'disposeInternal');
@@ -86,8 +81,6 @@ btr.controllers.basics.Component.prototype.add = function(opt_x, opt_y) {
 	goog.base(this, 'add');
 
 	this.activate();
-
-	Object.observe(this.model.getData(), this._onDataChange);
 
 	if(goog.isNumber(opt_x) || goog.isNumber(opt_y)) {
 		var x = opt_x || 0;
@@ -104,8 +97,6 @@ btr.controllers.basics.Component.prototype.remove = function() {
 	goog.base(this, 'remove');
 
 	this.deactivate();
-
-	Object.unobserve(this.model.getData(), this._onDataChange);
 
 	goog.dom.removeNode( this.view.element );
 };
@@ -160,6 +151,8 @@ btr.controllers.basics.Component.prototype.onContextMenuTriggered = function(e) 
 
 
 btr.controllers.basics.Component.prototype.onDataChange = function(changes) {
+
+	goog.base(this, 'onDataChange', changes);
 
 	goog.array.forEach(changes, function(change) {
 

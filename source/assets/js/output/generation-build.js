@@ -19985,7 +19985,7 @@ btr.templates.Generation.MainPage = function(opt_data, opt_ignored) {
  * @return {string}
  * @notypecheck
  */
-btr.templates.Generation.Content = function(opt_data, opt_ignored) {
+btr.templates.Generation.MainContent = function(opt_data, opt_ignored) {
   return '<!-- page content --><div></div>';
 };
 goog.provide('btr.apps.Generation');
@@ -19999,7 +19999,7 @@ btr.apps.Generation = function() {
 
 	goog.fx.anim.setAnimationWindow(window);
 
-	var helloWorld = soy.renderAsFragment(btr.templates.Generation.Content);
+	var helloWorld = soy.renderAsFragment(btr.templates.Generation.MainContent);
 	goog.dom.appendChild(document.body, helloWorld);
 };
 

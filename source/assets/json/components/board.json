@@ -1,7 +1,8 @@
 {
-	"id": "board",
+	"name": "board",
 	"board": {
 		"title": "Board",
+		"index": 0,
 		"width": {
 			"title": "Width",
 			"value": 640,

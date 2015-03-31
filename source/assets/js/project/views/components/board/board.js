@@ -17,6 +17,8 @@ btr.views.components.board.Board = function( model, template, opt_element ) {
 
 	this.parentElement = goog.dom.getElement('board-container');
 	this.hotspotElement = this.query('.layer.components')[0];
+	
+	this._boardElement = this.query('.board')[0];
 };
 goog.inherits(btr.views.components.board.Board, btr.views.components.Component);
 
@@ -26,13 +28,13 @@ btr.views.components.board.Board.prototype.setSize = function(opt_width, opt_hei
 	this.size.width = opt_width ? opt_width : this.size.width;
 	this.size.height = opt_height ? opt_height : this.size.height;
 
-	goog.style.setSize(this.element, this.size);
+	goog.style.setSize(this._boardElement, this.size);
 };
 
 
 btr.views.components.board.Board.prototype.setBackgroundColor = function(hex) {
 
-	goog.style.setStyle(this.element, 'background-color', hex);
+	goog.style.setStyle(this._boardElement, 'background-color', hex);
 };
 
 

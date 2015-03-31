@@ -9,8 +9,8 @@ btr.apps.Generation = function() {
 
 	goog.fx.anim.setAnimationWindow(window);
 
-	var helloWorld = soy.renderAsFragment(btr.templates.Generation.MainContent);
-	goog.dom.appendChild(document.body, helloWorld);
+	//var helloWorld = soy.renderAsFragment(btr.templates.Generation.MainContent);
+	//goog.dom.appendChild(document.body, helloWorld);
 };
 
 

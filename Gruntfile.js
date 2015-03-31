@@ -115,7 +115,7 @@ module.exports = function(grunt) {
     compass: {
       app: {
         options: {
-          specify: 'source/assets/styles/scss/btr.scss',
+          specify: ['source/assets/styles/scss/btr.scss', 'source/assets/styles/scss/app.scss'],
           sassDir: 'source/assets/styles/scss',
           cssDir: 'source/assets/styles/css',
           fontsDir: 'source/assets/styles/fonts',

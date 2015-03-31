@@ -2,6 +2,7 @@
 
 /**
  * The main html page
+ * @param boards The boards collection
  */
 {template .MainPage}
 <!DOCTYPE html>
@@ -12,6 +13,9 @@
     <link rel="stylesheet" href="assets/styles/css/main.css">
   </head>
   <body>
+    {call .MainContent}
+      {param boards: $boards /}
+    {/call}
     <!-- run js -->
     <script src="assets/js/main.js"></script>
     <script>
@@ -24,9 +28,13 @@
 
 /**
  * The main page content
+ * @param boards The boards collection
  */
 {template .MainContent}
 <!-- page content -->
 <div>
+  {foreach $board in keys($boards)}
+    {call btr.templates.Main.Board /}
+  {/foreach}
 </div>
 {/template}

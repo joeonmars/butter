@@ -21,7 +21,15 @@ btr.services.HtmlExport.prototype.exportFrom = function(dest) {
 
 	if(!btr.isNative) return;
 
-	var html = btr.templates.Generation.MainPage({name: 'Ed'});
+	var html = btr.templates.Generation.MainPage({
+		name: 'Ed',
+		boards: btr.boardManager.model.getData()['boards']
+	});
+
+	var beautifyHtml = require('js-beautify').html;
+	html = beautifyHtml(html, {
+		'indent_size': 2
+	});
 
 	var fs = require('fs-extra');
 
@@ -36,7 +44,7 @@ btr.services.HtmlExport.prototype.exportFrom = function(dest) {
 
 	  } else {
 
-	    console.log("template was successfully copied!");
+	    console.log("Template was successfully copied!");
 
 			var path = './cache/pages/index.html';
 

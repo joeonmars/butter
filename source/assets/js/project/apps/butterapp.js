@@ -10,6 +10,8 @@ goog.require('btr.models.Config');
 goog.require('btr.templates.Main');
 goog.require('btr.services.ImageExport');
 goog.require('btr.services.HtmlExport');
+goog.require('btr.services.Instagram');
+goog.require('btr.utils.Common');
 
 
 btr.apps.ButterApp = function() {
@@ -24,15 +26,14 @@ btr.apps.ButterApp = function() {
 		console.log("APP LOADED.", json);
 
 		btr.config = btr.models.Config.getInstance();
+		btr.commonUtils = btr.utils.Common;
 
 		btr.shortcuts = btr.controllers.globals.ShortcutManager.getInstance();
 
 		btr.imageExport = btr.services.ImageExport.getInstance();
-		btr.imageExport.exportFrom();
-
 		btr.htmlExport = btr.services.HtmlExport.getInstance();
-		btr.htmlExport.exportFrom();
-
+		btr.instagram = btr.services.Instagram.getInstance();
+		
 		btr.boardManager = btr.controllers.globals.BoardManager.getInstance();
 
 		// test
@@ -42,6 +43,17 @@ btr.apps.ButterApp = function() {
 
 			btr.boardManager.addBoard( boardGroup );
 		}
+
+		//btr.imageExport.exportFrom();
+		btr.htmlExport.exportFrom();
+/*
+		var instagramLogin = soy.renderAsFragment(btr.templates.Main.InstagramLogin);
+		goog.dom.appendChild(document.body, instagramLogin);
+
+		goog.events.listen(instagramLogin, goog.events.EventType.CLICK, function(e) {
+			btr.instagram.login();
+		});
+*/
 	});
 
 	btr.appLoader.load();

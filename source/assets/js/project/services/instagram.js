@@ -1,6 +1,7 @@
 goog.provide('btr.services.Instagram');
 
 goog.require('goog.events.EventTarget');
+goog.require('goog.net.XhrIo');
 
 
 /**
@@ -18,45 +19,76 @@ btr.services.Instagram = function() {
 	this.hasLogin = false;
 
 	this._user = null;
+	this._accessToken = null;
 
-	// create a server for authentication
-	var http = require('http');
-	var serveStatic = require('serve-static');
+	this._onReceiveUserInfo = goog.bind(this.onReceiveUserInfo, this);
+	this._onReceiveImagesFromUser = goog.bind(this.onReceiveImagesFromUser, this);
 
-	var serve = serveStatic('./', {
-		'index': 'instagram.html'
+	this._iframe = goog.dom.createDom('iframe', {
+		'src': 'http://localhost:4444/instagram'
 	});
-
-	var server = http.createServer(function(req, res){
-	  serve(req, res);
+	goog.style.setStyle(this._iframe, {
+		'position': 'absolute',
+		'width': 680+'px',
+		'height': 520+'px',
+		'outline': '1px solid black'
 	});
+	goog.dom.appendChild(document.body, this._iframe);
 
-	server.listen(3000);
-
-	this._iframe = null;
+	goog.events.listen(window, goog.events.EventType.MESSAGE, this.onIframeMessage, false, this);
 };
 goog.inherits(btr.services.Instagram, goog.events.EventTarget);
 goog.addSingletonGetter(btr.services.Instagram);
 
 
-btr.services.Instagram.prototype.login = function() {
+btr.services.Instagram.prototype.onIframeMessage = function(e) {
 
-	var url = 'https://instagram.com/oauth/authorize/?client_id=0d4ec1b1993a4ddda250fa3937868809&redirect_uri=http://localhost:3000&response_type=token';
-	
-	this._iframe = goog.dom.createDom('iframe', {
-		'src': url
-	});
-	goog.dom.appendChild(document.body, this._iframe);
+	var message = e.getBrowserEvent().data;
+	console.log(message);
 
-	/*
-	this._iframe.contentWindow.callback = goog.bind(function(){
-		this._iframe.contentWindow.postMessage('hello there', '*');
-	}, this);
-*/
+	goog.net.XhrIo.send(
+		'http://localhost:4444/instagram/userinfo',
+		this._onReceiveUserInfo);
 };
 
 
-btr.services.Instagram.prototype.getFromUser = function() {
+btr.services.Instagram.prototype.getImagesFromUser = function(opt_count) {
+
+	var count = opt_count || 1000;
+	goog.net.XhrIo.send(
+		'https://api.instagram.com/v1/users/self/feed?access_token='+this._accessToken+'&count='+count,
+		this._onReceiveImagesFromUser);
+};
 
 
+btr.services.Instagram.prototype.onReceiveUserInfo = function(e) {
+
+	var json = JSON.parse( e.target.getResponseText() );
+	this._user = json['user'];
+	this._accessToken = json['accessToken'];
+	console.log(json);
+
+	this.getImagesFromUser();
+};
+
+
+btr.services.Instagram.prototype.onReceiveImagesFromUser = function(e) {
+
+	var json = JSON.parse( e.target.getResponseText() );
+	
+	var images = goog.array.filter(json['data'], function(data) {
+		return goog.isDef(data['images']);
+	});
+
+	var imagesData = goog.array.map(images, function(data) {
+		return {
+			'caption': data['caption'] ? data['caption']['text'] : null,
+			'thumbnail': data['images']['thumbnail']['url']
+		};
+	});
+
+	var instagramPanel = soy.renderAsFragment(btr.templates.Main.InstagramPanel, {
+		images: imagesData
+	});
+	goog.dom.appendChild(document.body, instagramPanel);
 };

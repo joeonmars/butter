@@ -18,7 +18,7 @@ goog.addDependency('../../../../project/models/config.js', ['btr.models.Config']
 goog.addDependency('../../../../project/models/model.js', ['btr.models.Model'], ['goog.Disposable', 'goog.json.Serializer', 'goog.object']);
 goog.addDependency('../../../../project/services/htmlexport.js', ['btr.services.HtmlExport'], ['btr.templates.Generation', 'goog.events.EventTarget']);
 goog.addDependency('../../../../project/services/imageexport.js', ['btr.services.ImageExport'], ['goog.events.EventTarget']);
-goog.addDependency('../../../../project/services/instagram.js', ['btr.services.Instagram'], ['goog.events.EventTarget']);
+goog.addDependency('../../../../project/services/instagram.js', ['btr.services.Instagram'], ['goog.events.EventTarget', 'goog.net.XhrIo']);
 goog.addDependency('../../../../project/templates/generation.soy.js', ['btr.templates.Generation'], ['btr.templates.Main', 'soy', 'soydata']);
 goog.addDependency('../../../../project/templates/main.soy.js', ['btr.templates.Main'], ['soy', 'soydata']);
 goog.addDependency('../../../../project/templates/soyutils_usegoog.js', ['soy', 'soy.StringBuilder', 'soy.esc', 'soydata', 'soydata.SanitizedHtml', 'soydata.SanitizedHtmlAttribute', 'soydata.SanitizedJs', 'soydata.SanitizedJsStrChars', 'soydata.SanitizedUri', 'soydata.VERY_UNSAFE'], ['goog.asserts', 'goog.dom.DomHelper', 'goog.format', 'goog.i18n.BidiFormatter', 'goog.i18n.bidi', 'goog.soy', 'goog.soy.data.SanitizedContentKind', 'goog.string', 'goog.string.StringBuffer']);

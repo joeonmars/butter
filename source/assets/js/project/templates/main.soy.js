@@ -103,6 +103,15 @@ btr.templates.Main.ColorField = function(opt_data, opt_ignored) {
  * @return {string}
  * @notypecheck
  */
-btr.templates.Main.InstagramLogin = function(opt_data, opt_ignored) {
-  return '<button class="login instagram" style="position:absolute">Login Instagram</button>';
+btr.templates.Main.InstagramPanel = function(opt_data, opt_ignored) {
+  var output = '<ul class="instagram panel">';
+  var imageList102 = opt_data.images;
+  var imageListLen102 = imageList102.length;
+  for (var imageIndex102 = 0; imageIndex102 < imageListLen102; imageIndex102++) {
+    var imageData102 = imageList102[imageIndex102];
+    var caption__soy103 = imageData102['caption'];
+    output += '<img src="' + imageData102['thumbnail'] + '" ' + ((caption__soy103) ? 'title="' + caption__soy103 + '"' : '') + ' draggable="false">';
+  }
+  output += '</ul>';
+  return output;
 };

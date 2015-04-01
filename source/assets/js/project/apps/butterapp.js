@@ -46,14 +46,6 @@ btr.apps.ButterApp = function() {
 
 		//btr.imageExport.exportFrom();
 		btr.htmlExport.exportFrom();
-/*
-		var instagramLogin = soy.renderAsFragment(btr.templates.Main.InstagramLogin);
-		goog.dom.appendChild(document.body, instagramLogin);
-
-		goog.events.listen(instagramLogin, goog.events.EventType.CLICK, function(e) {
-			btr.instagram.login();
-		});
-*/
 	});
 
 	btr.appLoader.load();

@@ -102,7 +102,13 @@
 
 /**
  * Instagram login panel
+ * @param images The images data
  */
-{template .InstagramLogin}
-<button class="login instagram" style="position:absolute">Login Instagram</button>
+{template .InstagramPanel}
+<ul class="instagram panel">
+	{foreach $image in $images}
+		{let $caption: $image['caption']/}
+		<img src="{$image['thumbnail']}" {if $caption}title="{$caption}"{/if} draggable="false">
+	{/foreach}
+</ul>
 {/template}

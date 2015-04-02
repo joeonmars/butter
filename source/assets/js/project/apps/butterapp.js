@@ -4,16 +4,14 @@ goog.require('goog.dom');
 goog.require('goog.fx.anim');
 goog.require('btr.controllers.globals.AppLoader');
 goog.require('btr.controllers.globals.ShortcutManager');
+goog.require('btr.controllers.globals.WindowManager');
 goog.require('btr.controllers.globals.BoardManager');
 goog.require('btr.controllers.componentgroups.BoardGroup');
 goog.require('btr.models.Config');
 goog.require('btr.templates.Main');
 goog.require('btr.services.ImageExport');
 goog.require('btr.services.HtmlExport');
-goog.require('btr.services.Instagram');
-goog.require('btr.services.Dribbble');
-goog.require('btr.services.Facebook');
-goog.require('btr.services.Flickr');
+goog.require('btr.services.webservices.WebServiceServer');
 goog.require('btr.utils.Common');
 
 
@@ -33,12 +31,13 @@ btr.apps.ButterApp = function() {
 
 		btr.shortcuts = btr.controllers.globals.ShortcutManager.getInstance();
 
+		btr.window = btr.controllers.globals.WindowManager.getInstance();
+
 		btr.imageExport = btr.services.ImageExport.getInstance();
 		btr.htmlExport = btr.services.HtmlExport.getInstance();
-		//btr.instagram = btr.services.Instagram.getInstance();
-		//btr.dribbble = btr.services.Dribbble.getInstance();
-		//btr.facebook = btr.services.Facebook.getInstance(); //no iframe allowed
-		//btr.flickr = btr.services.Flickr.getInstance(); //no iframe allowed
+		
+		btr.webServices = btr.services.webservices.WebServiceServer.getInstance();
+		btr.webServices.facebook.login();
 
 		btr.boardManager = btr.controllers.globals.BoardManager.getInstance();
 

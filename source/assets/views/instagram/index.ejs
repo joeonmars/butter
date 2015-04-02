@@ -1,0 +1,7 @@
+<% if (!user) { %>
+	<h2>Log in Instagram</h2>
+	<a href="/instagram/auth">Log In</a>
+<% } else { %>
+	<h2>Hello, <%= user.username %>.</h2>
+	<a href="/instagram/logout">Log Out</a>
+<% } %>

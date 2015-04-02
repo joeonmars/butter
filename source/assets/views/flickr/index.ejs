@@ -1,0 +1,14 @@
+<% if (!user) { %>
+	<h2>Log in Flickr</h2>
+	<a href="/flickr/auth">Log In</a>
+<% } else { %>
+	<h2>Hello, <%= user.displayName %>.</h2>
+	<a href="/flickr/logout">Log Out</a>
+<% } %>
+
+<script>
+	window.success = <%= !(typeof user == 'undefined') %>;
+	console.log(window.success);
+</script>
+
+<script type="text/javascript" src="/scripts/iframe.js"></script>

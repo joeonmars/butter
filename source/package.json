@@ -15,6 +15,14 @@
     "fs-extra": "~0.17.0",
     "pageres": "~1.2.2",
     "js-beautify": "~1.5.5",
-    "serve-static": "~1.9.2"
+    "serve-static": ">= 0.0.0",
+    "express": ">= 0.0.0",
+    "ejs": ">= 0.0.0",
+    "express-session": ">= 0.0.0",
+    "passport": ">= 0.0.0",
+    "passport-instagram": ">= 0.0.0",
+    "passport-facebook": ">= 0.0.0",
+    "passport-dribbble": ">= 0.0.0",
+    "passport-flickr": ">= 0.0.0"
   }
 }

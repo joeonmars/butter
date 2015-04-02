@@ -1,14 +1,14 @@
-goog.provide('btr.services.Instagram');
+goog.provide('btr.services.Facebook');
 
 goog.require('goog.events.EventTarget');
 goog.require('goog.net.XhrIo');
 
 
 /**
- * Instagram service controller.
+ * Facebook service controller.
  * @constructor
  */
-btr.services.Instagram = function() {
+btr.services.Facebook = function() {
 
 	goog.base(this);
 
@@ -21,7 +21,7 @@ btr.services.Instagram = function() {
 	this._onReceiveImagesFromUser = goog.bind(this.onReceiveImagesFromUser, this);
 
 	this._iframe = goog.dom.createDom('iframe', {
-		'src': 'http://localhost:4444/instagram'
+		'src': 'http://localhost:4444/facebook'
 	});
 	goog.style.setStyle(this._iframe, {
 		'position': 'absolute',
@@ -33,32 +33,30 @@ btr.services.Instagram = function() {
 
 	goog.events.listen(window, goog.events.EventType.MESSAGE, this.onIframeMessage, false, this);
 };
-goog.inherits(btr.services.Instagram, goog.events.EventTarget);
-goog.addSingletonGetter(btr.services.Instagram);
+goog.inherits(btr.services.Facebook, goog.events.EventTarget);
+goog.addSingletonGetter(btr.services.Facebook);
 
 
-btr.services.Instagram.prototype.onIframeMessage = function(e) {
+btr.services.Facebook.prototype.onIframeMessage = function(e) {
 
 	var message = e.getBrowserEvent().data;
 	console.log(message);
 
 	goog.net.XhrIo.send(
-		'http://localhost:4444/instagram/userinfo',
+		'http://localhost:4444/facebook/userinfo',
 		this._onReceiveUserInfo);
 };
 
 
-btr.services.Instagram.prototype.getImagesFromUser = function(opt_count) {
+btr.services.Facebook.prototype.getImagesFromUser = function() {
 
-	var count = opt_count || 1000;
-	
 	goog.net.XhrIo.send(
-		'https://api.instagram.com/v1/users/self/feed?access_token='+this._accessToken+'&count='+count,
+		'https://graph.facebook.com/v2.3/me/photos?access_token='+this._accessToken,
 		this._onReceiveImagesFromUser);
 };
 
 
-btr.services.Instagram.prototype.onReceiveUserInfo = function(e) {
+btr.services.Facebook.prototype.onReceiveUserInfo = function(e) {
 
 	var json = JSON.parse( e.target.getResponseText() );
 	this._user = json['user'];
@@ -69,23 +67,25 @@ btr.services.Instagram.prototype.onReceiveUserInfo = function(e) {
 };
 
 
-btr.services.Instagram.prototype.onReceiveImagesFromUser = function(e) {
+btr.services.Facebook.prototype.onReceiveImagesFromUser = function(e) {
 
 	var json = JSON.parse( e.target.getResponseText() );
-	
-	var images = goog.array.filter(json['data'], function(data) {
-		return goog.isDef(data['images']);
-	});
 
-	var imagesData = goog.array.map(images, function(data) {
+	console.log(json);
+
+	var imagesData = goog.array.map(json['data'], function(data) {
+
+		var images = data['images'];
+
 		return {
-			'caption': data['caption'] ? data['caption']['text'] : null,
-			'thumbnail': data['images']['thumbnail']['url']
+			'caption': null,
+			'url': images[0]['source'],
+			'thumbnail': goog.array.peek(images)['source']
 		};
 	});
 
-	var instagramPanel = soy.renderAsFragment(btr.templates.Main.ImagesPanel, {
+	var facebookPanel = soy.renderAsFragment(btr.templates.Main.ImagesPanel, {
 		images: imagesData
 	});
-	goog.dom.appendChild(document.body, instagramPanel);
+	goog.dom.appendChild(document.body, facebookPanel);
 };

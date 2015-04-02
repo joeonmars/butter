@@ -20064,8 +20064,8 @@ btr.templates.Main.ColorField = function(opt_data, opt_ignored) {
  * @return {string}
  * @notypecheck
  */
-btr.templates.Main.InstagramPanel = function(opt_data, opt_ignored) {
-  var output = '<ul class="instagram panel">';
+btr.templates.Main.ImagesPanel = function(opt_data, opt_ignored) {
+  var output = '<ul class="images-panel">';
   var imageList102 = opt_data.images;
   var imageListLen102 = imageList102.length;
   for (var imageIndex102 = 0; imageIndex102 < imageListLen102; imageIndex102++) {

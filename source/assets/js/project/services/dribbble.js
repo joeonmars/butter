@@ -1,14 +1,14 @@
-goog.provide('btr.services.Instagram');
+goog.provide('btr.services.Dribbble');
 
 goog.require('goog.events.EventTarget');
 goog.require('goog.net.XhrIo');
 
 
 /**
- * Instagram service controller.
+ * Dribbble service controller.
  * @constructor
  */
-btr.services.Instagram = function() {
+btr.services.Dribbble = function() {
 
 	goog.base(this);
 
@@ -21,7 +21,7 @@ btr.services.Instagram = function() {
 	this._onReceiveImagesFromUser = goog.bind(this.onReceiveImagesFromUser, this);
 
 	this._iframe = goog.dom.createDom('iframe', {
-		'src': 'http://localhost:4444/instagram'
+		'src': 'http://localhost:4444/dribbble'
 	});
 	goog.style.setStyle(this._iframe, {
 		'position': 'absolute',
@@ -33,32 +33,32 @@ btr.services.Instagram = function() {
 
 	goog.events.listen(window, goog.events.EventType.MESSAGE, this.onIframeMessage, false, this);
 };
-goog.inherits(btr.services.Instagram, goog.events.EventTarget);
-goog.addSingletonGetter(btr.services.Instagram);
+goog.inherits(btr.services.Dribbble, goog.events.EventTarget);
+goog.addSingletonGetter(btr.services.Dribbble);
 
 
-btr.services.Instagram.prototype.onIframeMessage = function(e) {
+btr.services.Dribbble.prototype.onIframeMessage = function(e) {
 
 	var message = e.getBrowserEvent().data;
 	console.log(message);
 
 	goog.net.XhrIo.send(
-		'http://localhost:4444/instagram/userinfo',
+		'http://localhost:4444/dribbble/userinfo',
 		this._onReceiveUserInfo);
 };
 
 
-btr.services.Instagram.prototype.getImagesFromUser = function(opt_count) {
+btr.services.Dribbble.prototype.getImagesFromUser = function(opt_count) {
 
 	var count = opt_count || 1000;
-	
+
 	goog.net.XhrIo.send(
-		'https://api.instagram.com/v1/users/self/feed?access_token='+this._accessToken+'&count='+count,
+		'https://api.dribbble.com/v1/user/shots?access_token='+this._accessToken+'&per_page='+count,
 		this._onReceiveImagesFromUser);
 };
 
 
-btr.services.Instagram.prototype.onReceiveUserInfo = function(e) {
+btr.services.Dribbble.prototype.onReceiveUserInfo = function(e) {
 
 	var json = JSON.parse( e.target.getResponseText() );
 	this._user = json['user'];
@@ -69,23 +69,21 @@ btr.services.Instagram.prototype.onReceiveUserInfo = function(e) {
 };
 
 
-btr.services.Instagram.prototype.onReceiveImagesFromUser = function(e) {
+btr.services.Dribbble.prototype.onReceiveImagesFromUser = function(e) {
 
 	var json = JSON.parse( e.target.getResponseText() );
-	
-	var images = goog.array.filter(json['data'], function(data) {
-		return goog.isDef(data['images']);
-	});
 
-	var imagesData = goog.array.map(images, function(data) {
+	console.log(json);
+
+	var imagesData = goog.array.map(json, function(data) {
 		return {
-			'caption': data['caption'] ? data['caption']['text'] : null,
-			'thumbnail': data['images']['thumbnail']['url']
+			'caption': data['title'],
+			'thumbnail': data['images']['teaser']
 		};
 	});
 
-	var instagramPanel = soy.renderAsFragment(btr.templates.Main.ImagesPanel, {
+	var dribbblePanel = soy.renderAsFragment(btr.templates.Main.ImagesPanel, {
 		images: imagesData
 	});
-	goog.dom.appendChild(document.body, instagramPanel);
+	goog.dom.appendChild(document.body, dribbblePanel);
 };

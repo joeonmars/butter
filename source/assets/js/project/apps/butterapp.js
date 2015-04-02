@@ -11,6 +11,9 @@ goog.require('btr.templates.Main');
 goog.require('btr.services.ImageExport');
 goog.require('btr.services.HtmlExport');
 goog.require('btr.services.Instagram');
+goog.require('btr.services.Dribbble');
+goog.require('btr.services.Facebook');
+goog.require('btr.services.Flickr');
 goog.require('btr.utils.Common');
 
 
@@ -32,8 +35,11 @@ btr.apps.ButterApp = function() {
 
 		btr.imageExport = btr.services.ImageExport.getInstance();
 		btr.htmlExport = btr.services.HtmlExport.getInstance();
-		btr.instagram = btr.services.Instagram.getInstance();
-		
+		//btr.instagram = btr.services.Instagram.getInstance();
+		//btr.dribbble = btr.services.Dribbble.getInstance();
+		//btr.facebook = btr.services.Facebook.getInstance(); //no iframe allowed
+		//btr.flickr = btr.services.Flickr.getInstance(); //no iframe allowed
+
 		btr.boardManager = btr.controllers.globals.BoardManager.getInstance();
 
 		// test

@@ -10,6 +10,8 @@ btr.controllers.globals.WindowManager = function() {
 
 	var GUI = require('nw.gui');
 
+	GUI.Window.get().show();
+	
 	GUI.Window.get().on('close', function(){
 	   GUI.App.quit();
 	});

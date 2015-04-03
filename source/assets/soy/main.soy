@@ -105,7 +105,7 @@
  * @param images The images data
  */
 {template .ImagesPanel}
-<ul class="images-panel">
+<ul class="images-panel" style="position:absolute;">
 	{foreach $image in $images}
 		{let $caption: $image['caption']/}
 		<img src="{$image['thumbnail']}" {if $caption}title="{$caption}"{/if} draggable="false">

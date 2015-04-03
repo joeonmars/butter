@@ -37,8 +37,10 @@ btr.services.webservices.Facebook.prototype.onLoggedIn = function(e) {
 };
 
 
-btr.services.webservices.Facebook.prototype.handleImagesFromUser = function(json) {
+btr.services.webservices.Facebook.prototype.onReceiveImagesFromUser = function(e) {
 
+	var json = JSON.parse( e.target.getResponseText() );
+	
 	var imagesData = goog.array.map(json['data'], function(data) {
 
 		var images = data['images'];

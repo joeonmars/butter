@@ -156,14 +156,6 @@ btr.services.webservices.WebService.prototype.onReceiveUserInfo = function(e) {
 */
 
 
-btr.services.webservices.WebService.prototype.handleImagesFromUser = function(json) {
-
-};
-
-
 btr.services.webservices.WebService.prototype.onReceiveImagesFromUser = function(e) {
 
-	var json = JSON.parse( e.target.getResponseText() );
-	
-	this.handleImagesFromUser( json );
 };

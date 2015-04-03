@@ -1,8 +1,10 @@
 goog.provide('btr.services.webservices.WebServiceServer');
 
 goog.require('goog.net.XhrIo');
+goog.require('btr.services.webservices.Dribbble');
 goog.require('btr.services.webservices.Facebook');
 goog.require('btr.services.webservices.Instagram');
+goog.require('btr.services.webservices.Flickr');
 
 
 /**
@@ -54,7 +56,9 @@ btr.services.webservices.WebServiceServer.prototype.createServer = function() {
 	//app.use(express.static(btr.Config.assetsPath + '/public'));
 
 	this.facebook = new btr.services.webservices.Facebook(app);
-	//this.instagram = new btr.services.webservices.Instagram(app);
+	this.instagram = new btr.services.webservices.Instagram(app);
+	this.dribbble = new btr.services.webservices.Dribbble(app);
+	this.flickr = new btr.services.webservices.Flickr(app);
 
 	app.listen( btr.services.webservices.WebServiceServer.Port );
 };

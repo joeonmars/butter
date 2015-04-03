@@ -43,50 +43,18 @@ btr.utils.Common.hasQuery = function(key, value) {
 
 btr.utils.Common.openWindow = function(url) {
 
-  if(!btr.isNative) {
-    return null;
-  }
-
-  var width, height;
-
-  var isFacebook = goog.string.contains( url, 'facebook' );
-  var isTwitter = goog.string.contains( url, 'twitter' );
-  var isGoogle = goog.string.contains( url, 'google' );
-
-  if(isFacebook) {
-
-    width = 640;
-    height = 275;
-
-  }else if(isTwitter) {
-
-    width = 575;
-    height = 275;
-
-  }else if(isGoogle) {
-
-    width = 640;
-    height = 470;
-
-  }else {
-
-    width = 640;
-    height = 470;
-  }
-
-  var viewportSize = goog.dom.getViewportSize();
-
-  var x = (window.screenLeft || window.screenX) + (viewportSize.width - width)/2;
-  var y = (window.screenTop || window.screenY) + (viewportSize.height - height)/2;
+  var width = 1024;
+  var height = 640;
 
   var _gui = require('nw.gui');
 
   var _window = _gui.Window.open(url, {
-    'x': x,
-    'y': y,
     'width': width,
     'height': height
   });
+
+  _window.setPosition( 'mouse' );
+  //_window.setAlwaysOnTop( true );
 
   return _window;
 };

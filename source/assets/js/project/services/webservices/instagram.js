@@ -14,7 +14,7 @@ btr.services.webservices.Instagram = function(app) {
 	  clientSecret: '26365e4e62b54942bcde46e87b2d96ed'
 	};
 
-	var scope = ['user_photos', 'user_videos'];
+	var scope = ['basic'];
 
 	goog.base(this, app, 'instagram', credentials, scope);
 };
@@ -39,8 +39,10 @@ btr.services.webservices.Instagram.prototype.onLoggedIn = function(e) {
 };
 
 
-btr.services.webservices.Instagram.prototype.handleImagesFromUser = function(json) {
+btr.services.webservices.Instagram.prototype.onReceiveImagesFromUser = function(e) {
 
+	var json = JSON.parse( e.target.getResponseText() );
+	
 	var images = goog.array.filter(json['data'], function(data) {
 		return goog.isDef(data['images']);
 	});

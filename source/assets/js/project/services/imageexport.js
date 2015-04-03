@@ -18,8 +18,6 @@ goog.addSingletonGetter(btr.services.ImageExport);
 
 btr.services.ImageExport.prototype.exportFrom = function(dest) {
 
-	if(!btr.isNative) return;
-
 	var Pageres = require('pageres');
 
 	var pageres = new Pageres({delay: 2})

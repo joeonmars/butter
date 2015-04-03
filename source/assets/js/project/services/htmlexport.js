@@ -19,8 +19,6 @@ goog.addSingletonGetter(btr.services.HtmlExport);
 
 btr.services.HtmlExport.prototype.exportFrom = function(dest) {
 
-	if(!btr.isNative) return;
-
 	var html = btr.templates.Generation.MainPage({
 		name: 'Ed',
 		boards: btr.boardManager.model.getData()['boards']

@@ -104,7 +104,7 @@ btr.templates.Main.ColorField = function(opt_data, opt_ignored) {
  * @notypecheck
  */
 btr.templates.Main.ImagesPanel = function(opt_data, opt_ignored) {
-  var output = '<ul class="images-panel">';
+  var output = '<ul class="images-panel" style="position:absolute;">';
   var imageList102 = opt_data.images;
   var imageListLen102 = imageList102.length;
   for (var imageIndex102 = 0; imageIndex102 < imageListLen102; imageIndex102++) {

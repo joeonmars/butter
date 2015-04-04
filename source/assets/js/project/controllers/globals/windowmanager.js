@@ -16,6 +16,16 @@ btr.controllers.globals.WindowManager = function() {
 	   GUI.App.quit();
 	});
 
+	//USE THIS TO DETECT FILE INPUT
+	//https://github.com/nwjs/nw.js/wiki/Handling-files-and-arguments
+	/*
+	GUI.App.on('open', function(cmdline) {
+	  console.log('command line: ' + cmdline);
+	});
+
+	console.log(GUI.App.argv);
+	*/
+
 	//
 	if(process.platform === "darwin") {
 

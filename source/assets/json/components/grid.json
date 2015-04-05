@@ -1,6 +1,6 @@
 {
 	"name": "grid",
-	"grid": {
+	"data": {
 		"title": "Grid",
 		"size": {
 			"title": "Size",

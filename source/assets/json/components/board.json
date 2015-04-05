@@ -1,6 +1,6 @@
 {
 	"name": "board",
-	"board": {
+	"data": {
 		"title": "Board",
 		"index": 0,
 		"width": {

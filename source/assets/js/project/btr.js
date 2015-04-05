@@ -2,7 +2,7 @@ goog.provide('btr');
 
 goog.require('btr.apps.ButterApp');
 goog.require('btr.apps.Generation');
-goog.require('btr.apps.Redirect');
+goog.require('btr.apps.Test');
 
 
 btr.Config = {};
@@ -26,8 +26,8 @@ btr.init = function( config ) {
 		btr.apps.Generation();
 		break;
 
-		case 'redirect':
-		btr.apps.Redirect();
+		case 'test':
+		btr.apps.Test();
 		break;
 	};
 };

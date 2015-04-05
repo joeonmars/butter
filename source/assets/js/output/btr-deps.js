@@ -2,8 +2,8 @@
 // Please do not edit.
 goog.addDependency('../../../../project/apps/butterapp.js', ['btr.apps.ButterApp'], ['btr.controllers.componentgroups.BoardGroup', 'btr.controllers.globals.AppLoader', 'btr.controllers.globals.BoardManager', 'btr.controllers.globals.ShortcutManager', 'btr.controllers.globals.WindowManager', 'btr.models.Config', 'btr.services.HtmlExport', 'btr.services.ImageExport', 'btr.services.webservices.WebServiceServer', 'btr.templates.Main', 'btr.utils.Common', 'goog.dom', 'goog.fx.anim']);
 goog.addDependency('../../../../project/apps/generation.js', ['btr.apps.Generation'], ['btr.templates.Generation', 'goog.dom', 'goog.fx.anim']);
-goog.addDependency('../../../../project/apps/redirect.js', ['btr.apps.Redirect'], ['goog.Uri', 'goog.dom']);
-goog.addDependency('../../../../project/btr.js', ['btr'], ['btr.apps.ButterApp', 'btr.apps.Generation', 'btr.apps.Redirect']);
+goog.addDependency('../../../../project/apps/test.js', ['btr.apps.Test'], ['btr.controllers.test.Control', 'btr.templates.Test', 'goog.dom', 'goog.dom.query']);
+goog.addDependency('../../../../project/btr.js', ['btr'], ['btr.apps.ButterApp', 'btr.apps.Generation', 'btr.apps.Test']);
 goog.addDependency('../../../../project/controllers/basics/component.js', ['btr.controllers.basics.Component'], ['btr.controllers.basics.Controller', 'btr.controllers.components.EditorWindow', 'goog.array']);
 goog.addDependency('../../../../project/controllers/basics/componentgroup.js', ['btr.controllers.basics.ComponentGroup'], ['btr.controllers.basics.Controller', 'btr.models.Model', 'goog.array']);
 goog.addDependency('../../../../project/controllers/basics/controller.js', ['btr.controllers.basics.Controller'], ['btr.models.Model', 'goog.events.EventHandler', 'goog.events.EventTarget']);
@@ -15,6 +15,11 @@ goog.addDependency('../../../../project/controllers/globals/apploader.js', ['btr
 goog.addDependency('../../../../project/controllers/globals/boardmanager.js', ['btr.controllers.globals.BoardManager'], ['btr.controllers.basics.Controller', 'goog.events']);
 goog.addDependency('../../../../project/controllers/globals/shortcutmanager.js', ['btr.controllers.globals.ShortcutManager'], ['goog.events', 'goog.ui.KeyboardShortcutHandler']);
 goog.addDependency('../../../../project/controllers/globals/windowmanager.js', ['btr.controllers.globals.WindowManager'], ['goog.events']);
+goog.addDependency('../../../../project/controllers/test/constructors.js', ['btr.controllers.test.Constructors'], ['btr.templates.Test']);
+goog.addDependency('../../../../project/controllers/test/container.js', ['btr.controllers.test.Container'], ['btr.controllers.test.ContainerRenderer', 'goog.ui.Container']);
+goog.addDependency('../../../../project/controllers/test/containerrenderer.js', ['btr.controllers.test.ContainerRenderer'], ['goog.ui.ContainerRenderer']);
+goog.addDependency('../../../../project/controllers/test/control.js', ['btr.controllers.test.Control'], ['btr.controllers.test.Constructors', 'btr.controllers.test.ControlRenderer', 'btr.models.Model', 'goog.array', 'goog.dom', 'goog.ui.Control']);
+goog.addDependency('../../../../project/controllers/test/controlrenderer.js', ['btr.controllers.test.ControlRenderer'], ['goog.ui.ControlRenderer', 'goog.ui.registry']);
 goog.addDependency('../../../../project/models/config.js', ['btr.models.Config'], ['btr.controllers.components.Grid', 'btr.controllers.components.board.Board', 'btr.templates.Main', 'btr.views.components.board.Board', 'goog.events.KeyCodes', 'goog.ui.KeyboardShortcutHandler']);
 goog.addDependency('../../../../project/models/model.js', ['btr.models.Model'], ['goog.Disposable', 'goog.json.Serializer', 'goog.object']);
 goog.addDependency('../../../../project/services/htmlexport.js', ['btr.services.HtmlExport'], ['btr.templates.Generation', 'goog.events.EventTarget']);
@@ -29,6 +34,7 @@ goog.addDependency('../../../../project/services/webserviceserver.js', ['btr.ser
 goog.addDependency('../../../../project/templates/generation.soy.js', ['btr.templates.Generation'], ['btr.templates.Main', 'soy', 'soydata']);
 goog.addDependency('../../../../project/templates/main.soy.js', ['btr.templates.Main'], ['soy', 'soydata']);
 goog.addDependency('../../../../project/templates/soyutils_usegoog.js', ['soy', 'soy.StringBuilder', 'soy.esc', 'soydata', 'soydata.SanitizedHtml', 'soydata.SanitizedHtmlAttribute', 'soydata.SanitizedJs', 'soydata.SanitizedJsStrChars', 'soydata.SanitizedUri', 'soydata.VERY_UNSAFE'], ['goog.asserts', 'goog.dom.DomHelper', 'goog.format', 'goog.i18n.BidiFormatter', 'goog.i18n.bidi', 'goog.soy', 'goog.soy.data.SanitizedContentKind', 'goog.string', 'goog.string.StringBuffer']);
+goog.addDependency('../../../../project/templates/test.soy.js', ['btr.templates.Test'], ['soy', 'soydata']);
 goog.addDependency('../../../../project/utils/common.js', ['btr.utils.Common'], ['goog.Uri', 'goog.dom', 'goog.string', 'goog.window']);
 goog.addDependency('../../../../project/views/components/board/board.js', ['btr.views.components.board.Board'], ['btr.views.components.Component', 'goog.math.Size', 'goog.style']);
 goog.addDependency('../../../../project/views/components/component.js', ['btr.views.components.Component'], ['goog.dom.query', 'goog.events.EventHandler', 'goog.events.EventTarget', 'goog.style']);

@@ -1,0 +1,36 @@
+{namespace btr.templates.Test autoescape="false"}
+
+/**
+ * Say Hello
+ */
+{template .HelloWorld}
+<div class="component main" data-model="test-main">
+	This is a component.
+	<div class="component" data-model="test-child-1">
+		This is the child component 1.
+		<div class="component" data-model="test-child-2" data-view="test-child-2">
+			<div class="component" data-model="test-child-3" data-view="test-child-3" data-control="test-child-3"></div>
+		</div>
+	</div>
+</div>
+{/template}
+
+
+/**
+ * Test Child Component 2
+ */
+{template .TestChildComponent2}
+<div class="component">
+	This is a child component 2.
+</div>
+{/template}
+
+
+/**
+ * Test Child Component 3
+ */
+{template .TestChildComponent3}
+<div class="component" data-model="test-child-3" data-view="test-child-3" data-control="test-child-3">
+	This is a child component 3.
+</div>
+{/template}

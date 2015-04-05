@@ -9,7 +9,7 @@ goog.require('btr.models.Model');
 
 
 /**
- * Basic element control, listen for model(data) changes and update its view.
+ * Basic component control, listen for model(data) changes and update its view.
  * Extension pattern refers to http://www.closurecheatsheet.com/ui
  * @constructor
  * @param {string|btr.models.Model} model The ID for generating the model, or the model itself.

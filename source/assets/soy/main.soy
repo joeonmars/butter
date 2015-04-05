@@ -5,98 +5,22 @@
  */
 {template .HelloWorld}
 <main>
-	<div id="board-container"></div>
-	<div id="window-editor-container"></div>
-</main>
-{/template}
-
-
-/**
- * Board
- */
-{template .Board}
-<section class="board-view">
-	<div class="board">
-		<div class="layer components"></div>
-		<div class="layer grid"></div>
-		<div class="layer selection"></div>
+	<div id="toolbar">
 	</div>
-</section>
-{/template}
 
+	<div id="project-container">
+		<div id="navigation-pane">
+		</div>
 
-/**
- * Editor Window
- * @param data The editor model data
- */
-{template .EditorWindow}
-<div class="editor-window">
-	<div class="title-bar">
-		<h6>{ $data['title'] }</h6>
-		<div class="controls">
-			<button class="icon icon-expand" data-id="toggle"></button>
-			<button class="icon icon-close" data-id="close"></button>
+		<div id="board-pane">
+			<div id="board-container"></div>
+			<div id="editor-window-container"></div>
+		</div>
+		
+		<div id="editor-pane">
 		</div>
 	</div>
-	<ul class="property-sheet">
-		{foreach $key in keys($data)}
-		{let $editor: $data[$key]['editor'] /}
-		{if $editor}
-		<li>
-			<label>{ $data[$key]['title'] }</label>
-			<div class="field" data-id="{ $key }" data-type="{ $editor }"></div>
-		</li>
-		{/if}
-		{/foreach}
-	</ul>
-</div>
-{/template}
-
-
-/**
- * Editor Window - Integer
- * @param name The name
- * @param data The data
- */
-{template .IntegerField}
-{let $value: $data['value'] /}
-{let $min: $data['min'] /}
-{let $max: $data['max'] /}
-{let $type}
-	{if $data['editor'] == 'integer'}number
-	{elseif $data['editor'] == 'integerrange'}range
-	{/if}
-{/let}
-<input class="field" type="{ $type }" step="1" value="{ $value }" {if isNonnull($min)}min="{ $min }"{/if} {if isNonnull($max)}max="{ $max }"{/if} data-id="{ $name }">
-{/template}
-
-
-/**
- * Editor Window - Number
- * @param name The name
- * @param data The data
- */
-{template .NumberField}
-{let $value: $data['value'] /}
-{let $min: $data['min'] /}
-{let $max: $data['max'] /}
-{let $type}
-	{if $data['editor'] == 'number'}number
-	{elseif $data['editor'] == 'numberrange'}range
-	{/if}
-{/let}
-<input class="field" type="{ $type }" step="0.01" value="{ $value }" {if isNonnull($min)}min="{ $min }"{/if} {if isNonnull($max)}max="{ $max }"{/if} data-id="{ $name }">
-{/template}
-
-
-/**
- * Editor Window - Color
- * @param name The name
- * @param data The data
- */
-{template .ColorField}
-{let $value: $data['value'] /}
-<input class="field" type="color" value="{ $value }" data-id="{ $name }">
+</main>
 {/template}
 
 

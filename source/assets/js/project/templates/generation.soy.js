@@ -5,7 +5,6 @@ goog.provide('btr.templates.Generation');
 
 goog.require('soy');
 goog.require('soydata');
-goog.require('btr.templates.Main');
 
 
 /**
@@ -27,11 +26,10 @@ btr.templates.Generation.MainPage = function(opt_data, opt_ignored) {
  */
 btr.templates.Generation.MainContent = function(opt_data, opt_ignored) {
   var output = '<!-- page content --><div>';
-  var boardList9 = soy.$$getMapKeys(opt_data.boards);
-  var boardListLen9 = boardList9.length;
-  for (var boardIndex9 = 0; boardIndex9 < boardListLen9; boardIndex9++) {
-    var boardData9 = boardList9[boardIndex9];
-    output += btr.templates.Main.Board(null);
+  var boardList97 = soy.$$getMapKeys(opt_data.boards);
+  var boardListLen97 = boardList97.length;
+  for (var boardIndex97 = 0; boardIndex97 < boardListLen97; boardIndex97++) {
+    var boardData97 = boardList97[boardIndex97];
   }
   output += '</div>';
   return output;

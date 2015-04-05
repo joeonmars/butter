@@ -18,7 +18,7 @@ btr.controllers.globals.ShortcutManager = function() {
 	this._shortcuts = {};
 	this._callbacks = {};
 
-	var settings = btr.appLoader.getAsset('shortcuts')['shortcuts'];
+	var settings = btr.appLoader.getAsset('shortcuts')['data'];
 	this.applySettings( settings );
 };
 goog.addSingletonGetter(btr.controllers.globals.ShortcutManager);

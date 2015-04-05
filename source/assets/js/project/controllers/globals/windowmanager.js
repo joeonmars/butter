@@ -1,6 +1,7 @@
 goog.provide('btr.controllers.globals.WindowManager');
 
 goog.require('goog.events');
+goog.require('btr.controllers.globals.ShortcutManager');
 
 /**
  * The global window controller.
@@ -10,10 +11,26 @@ btr.controllers.globals.WindowManager = function() {
 
 	var GUI = require('nw.gui');
 
-	GUI.Window.get().show();
+	var guiWindow = GUI.Window.get();
+
+	var initWidth = Math.max(1024, Math.min(1600, screen.width * .8));
+	var initHeight = Math.max(768, Math.min(1000, screen.height * .8));
+	var initX = (screen.width - initWidth)/2;
+	var initY = (screen.height - initHeight)/2;
+	guiWindow.resizeTo(initWidth, initHeight);
+	guiWindow.moveTo(initX, initY);
+
+	guiWindow.show();
 	
-	GUI.Window.get().on('close', function(){
+	guiWindow.on('close', function(){
 	   GUI.App.quit();
+	});
+
+	var shortcuts = btr.controllers.globals.ShortcutManager.getInstance();
+	shortcuts.register('show-devtools', function(){
+		if(!guiWindow.isDevToolsOpen()) {
+			guiWindow.showDevTools();
+		}
 	});
 
 	//USE THIS TO DETECT FILE INPUT
@@ -34,7 +51,7 @@ btr.controllers.globals.WindowManager = function() {
 			'hideEdit': false
 		});
 
-		GUI.Window.get()['menu'] = menubar;
+		guiWindow['menu'] = menubar;
 
 		var menu = new GUI.Menu();
 

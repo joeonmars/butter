@@ -6,9 +6,11 @@ goog.require('btr.controllers.globals.AppLoader');
 goog.require('btr.controllers.globals.ShortcutManager');
 goog.require('btr.controllers.globals.WindowManager');
 goog.require('btr.controllers.globals.BoardManager');
-goog.require('btr.controllers.componentgroups.BoardGroup');
+goog.require('btr.controllers.basics.Constructors');
+goog.require('btr.controllers.elements.BoardGroup');
 goog.require('btr.models.Config');
 goog.require('btr.templates.Main');
+goog.require('btr.templates.Component');
 goog.require('btr.services.ImageExport');
 goog.require('btr.services.HtmlExport');
 goog.require('btr.services.webservices.WebServiceServer');
@@ -37,14 +39,15 @@ btr.apps.ButterApp = function() {
 		btr.htmlExport = btr.services.HtmlExport.getInstance();
 		
 		btr.webServices = btr.services.webservices.WebServiceServer.getInstance();
-		btr.webServices.facebook.login();
+		//btr.webServices.facebook.login();
 
 		btr.boardManager = btr.controllers.globals.BoardManager.getInstance();
 
 		// test
 		for(var i = 0; i < 1; i++) {
-			var boardGroup = new btr.controllers.componentgroups.BoardGroup;
-			boardGroup.add();
+
+			var boardGroup = new btr.controllers.elements.BoardGroup('board', 'board-group');
+			boardGroup.render( goog.dom.getElement('board-container') );
 
 			btr.boardManager.addBoard( boardGroup );
 		}

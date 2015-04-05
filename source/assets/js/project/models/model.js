@@ -11,20 +11,20 @@ goog.require('goog.json.Serializer');
  * @param {string} name The name of the model.
  * @param {object} opt_data The optional data copy to apply to the model.
  */
-btr.models.Model = function( name, opt_data ) {
+btr.models.Model = function( name, opt_data, opt_defaultData ) {
 
 	goog.base(this);
 
-	this._data = {};
-	this._defaultData = null;
+	this._data = opt_data || {};
+	this._defaultData = opt_defaultData || {};
 
 	this.name = name;
 	this.id = this.name + '-' + goog.getUid(this);
 
-	var data = opt_data || (btr.appLoader ? 
-		(btr.appLoader.getAsset(this.name) ? btr.appLoader.getAsset(this.name)['data'] : null) : null);
+	var data = btr.appLoader ? 
+		(btr.appLoader.getAsset(this.name) ? btr.appLoader.getAsset(this.name)['data'] : null) : null;
 
-	this.applyData( data || {} );
+	this.applyData( data || this._defaultData );
 };
 goog.inherits(btr.models.Model, goog.Disposable);
 
@@ -75,7 +75,7 @@ btr.models.Model.prototype.serialize = function() {
 
 btr.models.Model.prototype.clone = function(name) {
 
-	return new btr.models.Model(name, this._data);
+	return new btr.models.Model( name, this._data, this._defaultData );
 };
 
 

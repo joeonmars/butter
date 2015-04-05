@@ -1,8 +1,10 @@
 {
 	"name": "shortcuts",
 	"data": {
+		"show-devtools": "cmd+alt+i",
 		"zoom-in": "cmd+equals",
 		"zoom-out": "cmd+dash",
+		"edit-in-place": "cmd+e",
 		"toggle-grid": "`"
 	}
 }

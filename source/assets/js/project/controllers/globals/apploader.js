@@ -10,14 +10,21 @@ goog.require('goog.net.BulkLoader');
  */
 btr.controllers.globals.AppLoader = function(callback) {
 
+	var assetsPath = btr.Config.assetsPath;
+
 	var urls = [
-		btr.Config.assetsPath + '/json/config.json',
-		btr.Config.assetsPath + '/json/shortcuts.json',
-		btr.Config.assetsPath + '/json/components/board.json',
-		btr.Config.assetsPath + '/json/components/grid.json'
+		'/json/config.json',
+		'/json/shortcuts.json',
+		'/json/components/board.json',
+		'/json/components/grid.json',
+		'/json/resources/image.json',
+		'/json/resources/video.json'
 	];
 
-	this._loader = new goog.net.BulkLoader(urls);
+	this._loader = new goog.net.BulkLoader(goog.array.map(urls, function(url) {
+		return btr.Config.assetsPath + url;
+	}));
+
 	goog.events.listen(this._loader, [goog.net.EventType.SUCCESS, goog.net.EventType.ERROR],
 		this.onLoad, false, this);
 

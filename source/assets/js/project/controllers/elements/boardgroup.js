@@ -16,6 +16,10 @@ btr.controllers.elements.BoardGroup = function( model, view, opt_rootElement ) {
 
 	this._size = new goog.math.Size();
 	this._boardEl = goog.dom.getElementByClass('board', this.getElement());
+
+	this.addObservationPath('width', 'width.value');
+	this.addObservationPath('height', 'height.value');
+	this.addObservationPath('background', 'background.value');
 };
 goog.inherits(btr.controllers.elements.BoardGroup, btr.controllers.basics.Element);
 
@@ -51,7 +55,7 @@ btr.controllers.elements.BoardGroup.prototype.handleDataChange = function( name,
 		this.setSize( null, value );
 	}
 
-	if(name === 'background-color') {
+	if(name === 'background') {
 		this.setBackgroundColor( value );
 	}
 };

@@ -5,37 +5,122 @@ main{
 	width: 100%;
 	height: 100%;
 	background-color: #dfdfdf;
-	padding-top: 90px;
+	padding-top: 75px;
 	@include box-sizing(border-box);
 
 	#toolbar{
 		position: absolute;
+		z-index: 1;
 		top: 0;
 		width: 100%;
-		height: 90px;
+		height: 75px;
 		background: #d4d4d4;
 	}
 
 	#project-container{
 		position: relative;
+		z-index: 0;
+		width: 100%;
 		height: 100%;
-		@include flexbox((
-			display: flex,
-			align-items: center,
-			justify-content: center
-		));
+		font-size: 0;
+		white-space: nowrap;
+		overflow: hidden;
 
 	    #navigation-pane{
+	    	display: inline-block;
+	    	vertical-align: top;
+	    	position: relative;
+	    	z-index: 2;
 			height: 100%;
+			white-space: normal;
+			font-size: 10px;
+
+			&.fold{
+				.content-container{
+					width: 0;
+				}
+			}
+
+			.unfold{
+				width: 40px;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				right: -40px;
+
+				&:before{
+					content: "";
+					position: absolute;
+					top: 0;
+					left: 0;
+					display: block;
+					width: 6px;
+					height: 100%;
+					background-color: #9f9f9f;
+				}
+			}
+
+			.content-container{
+				width: 175px;
+				height: 100%;
+				background-color: #d0d0d0;
+				overflow: hidden;
+			}
 		}
 
 		#board-pane{
+			display: inline-block;
+	    	vertical-align: top;
+			position: relative;
+			z-index: 0;
 			width: 100%;
 			height: 100%;
+			overflow: hidden;
+			white-space: normal;
+			font-size: 10px;
 		}
 
 		#editor-pane{
+			display: inline-block;
+	    	vertical-align: top;
+			position: relative;
+			z-index: 1;
 			height: 100%;
+			background-color: #d0d0d0;
+			white-space: normal;
+			font-size: 10px;
+
+			&.fold{
+				.content-container{
+					width: 0;
+				}
+			}
+
+			.unfold{
+				width: 40px;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: -40px;
+
+				&:before{
+					content: "";
+					position: absolute;
+					top: 0;
+					right: 0;
+					display: block;
+					width: 6px;
+					height: 100%;
+					background-color: #9f9f9f;
+				}
+			}
+
+			.content-container{
+				width: 280px;
+				height: 100%;
+				background-color: #d0d0d0;
+				overflow: hidden;
+			}
 		}
 	}
 

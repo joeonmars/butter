@@ -14,7 +14,7 @@ goog.require('soydata');
  * @notypecheck
  */
 btr.templates.Main.HelloWorld = function(opt_data, opt_ignored) {
-  return '<main><div id="toolbar"></div><div id="project-container"><div id="navigation-pane"></div><div id="board-pane"><div id="board-container"></div><div id="editor-window-container"></div></div><div id="editor-pane"></div></div></main>';
+  return '<main><div id="toolbar"></div><div id="project-container" class="ui" data-model="project-container" data-control="project-container"><div id="navigation-pane" class="ui" data-model="navigation-pane" data-control="navigation-pane"><button class="unfold button"></button><div class="content-container"></div></div><div id="board-pane" class="ui" data-model="board-pane" data-control="board-pane"><div id="board-container"></div><div id="editor-window-container"></div></div><div id="editor-pane" class="ui" data-model="editor-pane" data-control="editor-pane"><button class="unfold button"></button><div class="content-container"></div></div></div></main>';
 };
 
 

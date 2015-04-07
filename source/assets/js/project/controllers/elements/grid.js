@@ -15,6 +15,10 @@ btr.controllers.elements.Grid = function( model, view, opt_rootElement ) {
 	this.isShortcutEnabled = true;
 
 	this._canvas = new goog.dom.createDom('canvas');
+
+	this.addObservationPath('size', 'size.value');
+	this.addObservationPath('color', 'color.value');
+	this.addObservationPath('opacity', 'opacity.value');
 };
 goog.inherits(btr.controllers.elements.Grid, btr.controllers.basics.Control);
 
@@ -31,9 +35,10 @@ btr.controllers.elements.Grid.prototype.handleShortcut = function(id) {
 
 btr.controllers.elements.Grid.prototype.draw = function(opt_size, opt_opacity, opt_color) {
 
-	var size = opt_size ? opt_size : this.model.getData()['size'];
-	var opacity = opt_opacity ? opt_opacity : this.model.getData()['opacity'];
-	var color = opt_color ? opt_color : this.model.getData()['color'];
+	var size = opt_size ? opt_size : this.model.getValue('size');
+	var opacity = opt_opacity ? opt_opacity : this.model.getValue('opacity');
+	var color = opt_color ? opt_color : this.model.getValue('color');
+
 	var rgb = goog.color.hexToRgb(color);
 
 	this._canvas.width = size;

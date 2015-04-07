@@ -15,16 +15,19 @@ btr.models.Model = function( name, opt_data, opt_defaultData ) {
 
 	goog.base(this);
 
-	this._data = opt_data || {};
+	this.name = name;
+	this.id = this.name + '-' + goog.now();
+
 	this._defaultData = opt_defaultData || {};
 
-	this.name = name;
-	this.id = this.name + '-' + goog.getUid(this);
+	if(btr.appLoader) {
+		this._defaultData = btr.appLoader.getAsset(this.name) ?
+			btr.appLoader.getAsset(this.name)['data'] : this._defaultData;
+	}
 
-	var data = btr.appLoader ? 
-		(btr.appLoader.getAsset(this.name) ? btr.appLoader.getAsset(this.name)['data'] : null) : null;
+	this._data = opt_data || goog.object.clone( this._defaultData );
 
-	this.applyData( data || this._defaultData );
+	console.log('"' + this.name + '" data applied.', this.serialize());
 };
 goog.inherits(btr.models.Model, goog.Disposable);
 
@@ -33,13 +36,25 @@ btr.models.Model.prototype.set = function(key, value) {
 
 	this._data[key] = value;
 
-	return value;
+	return this._data[key];
+};
+
+
+btr.models.Model.prototype.setValue = function(key, value) {
+
+	this._data[key].value = value;
 };
 
 
 btr.models.Model.prototype.get = function(key) {
 
 	return this._data[key];
+};
+
+
+btr.models.Model.prototype.getValue = function(key) {
+
+	return this._data[key].value;
 };
 
 
@@ -52,12 +67,6 @@ btr.models.Model.prototype.getData = function() {
 btr.models.Model.prototype.getDefaultData = function() {
 
 	return this._defaultData;
-};
-
-
-btr.models.Model.prototype.extend = function(object) {
-
-	goog.object.extend(this._data, object);
 };
 
 
@@ -76,28 +85,6 @@ btr.models.Model.prototype.serialize = function() {
 btr.models.Model.prototype.clone = function(name) {
 
 	return new btr.models.Model( name, this._data, this._defaultData );
-};
-
-
-btr.models.Model.prototype.applyData = function(data) {
-
-	this._defaultData = data;
-
-	goog.object.forEach(this._defaultData, function(obj, name) {
-
-		var _value;
-
-		if(goog.isArray(obj) || goog.isBoolean(obj) || goog.isString(obj) || goog.isNumber(obj)) {
-			_value = obj;
-		}else {
-			_value = obj['value'];
-		}
-
-		this.set(name, _value);
-
-	}, this);
-
-	console.log('"' + this.name + '" data applied.', this.serialize());
 };
 
 

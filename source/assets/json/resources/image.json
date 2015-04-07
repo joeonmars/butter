@@ -1,0 +1,13 @@
+{
+	"name": "image",
+	"data": {
+		"origin": null,
+		"local": null,
+		"service": null,
+		"title": null,
+		"description": null,
+		"date": null,
+		"author": null,
+		"link": null
+	}
+}

@@ -22,14 +22,3 @@ btr.controllers.basics.ControlRenderer.CSS_CLASS = 'component';
 btr.controllers.basics.ControlRenderer.prototype.getCssClass = function() {
     return btr.controllers.basics.ControlRenderer.CSS_CLASS;
 };
-
-
-/**
- * Register control to CSS class name
- */
-goog.ui.registry.setDecoratorByClassName(
-    btr.controllers.basics.ControlRenderer.CSS_CLASS,
-    function() {
-        return new app.Control();
-    }
-);

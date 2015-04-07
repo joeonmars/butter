@@ -5,19 +5,19 @@
 		"index": 0,
 		"width": {
 			"title": "Width",
-			"value": 640,
+			"value": 960,
 			"editor": "integer",
 			"min": 1,
 			"max": 10000
 		},
 		"height": {
 			"title": "Height",
-			"value": 480,
+			"value": 720,
 			"editor": "integer",
 			"min": 1,
 			"max": 10000
 		},
-		"background-color": {
+		"background": {
 			"title": "Background",
 			"value": "#ffffff",
 			"editor": "color"

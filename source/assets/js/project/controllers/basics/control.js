@@ -36,7 +36,10 @@ btr.controllers.basics.Control = function( model, view, opt_rootElement ) {
 
 	this.isShortcutEnabled = this.isShortcutEnabled || false;
 
-	this._onDataChange = goog.bind(this.onDataChange, this);
+	this._observer = new CompoundObserver();
+	this._observerDataNames = [];
+	this._observerDataPaths = [];
+
 	this._handleShortcut = goog.bind(this.handleShortcut, this);
 };
 goog.inherits(btr.controllers.basics.Control, goog.ui.Control);
@@ -52,8 +55,10 @@ btr.controllers.basics.Control.prototype.createDom = function( view, opt_rootEle
 
 btr.controllers.basics.Control.prototype.createChildComponents = function() {
 
-	// only get the immediate component elements
-	var componentEls = goog.dom.query('> .component', this.getElement());
+	// only get the immediate component elements by classname
+	var cssClass = this.getRenderer().getCssClass();
+
+	var componentEls = goog.dom.query('> .' + cssClass, this.getElement());
 
 	goog.array.forEach( componentEls, function(el) {
 
@@ -111,17 +116,13 @@ btr.controllers.basics.Control.prototype.enterDocument = function() {
 
     goog.base(this, 'enterDocument');
 
-    Object.observe(this.model.getData(), this._onDataChange);
-
-    this.activate();
+	this.activate();
 };
 
 
 btr.controllers.basics.Control.prototype.exitDocument = function() {
 
     goog.base(this, 'exitDocument');
-
-    Object.unobserve(this.model.getData(), this._onDataChange);
 
     this.deactivate();
 };
@@ -173,7 +174,9 @@ btr.controllers.basics.Control.prototype.deactivate = function() {
 
 btr.controllers.basics.Control.prototype.activateInternal = function() {
 
-	this.refreshData();
+	this.startObservation();
+
+	this.applyData();
 
 	if(this.isShortcutEnabled) {
 		this.refreshShortcuts();
@@ -182,6 +185,8 @@ btr.controllers.basics.Control.prototype.activateInternal = function() {
 
 
 btr.controllers.basics.Control.prototype.deactivateInternal = function() {
+
+	this.stopObservation();
 
 	var shortcuts = this.model.get('shortcuts');
 
@@ -194,10 +199,48 @@ btr.controllers.basics.Control.prototype.deactivateInternal = function() {
 };
 
 
-btr.controllers.basics.Control.prototype.refreshData = function() {
+btr.controllers.basics.Control.prototype.addObservationPath = function( name, path ) {
 
-	goog.object.forEach(this.model.getData(), function(value, key) {
-		this.handleDataChange(key, value);
+	this._observerDataNames.push(name);
+	this._observerDataPaths.push(path);
+
+	this._observer.addPath( this.model.getData(), path );
+};
+
+
+btr.controllers.basics.Control.prototype.startObservation = function() {
+
+	this._observer.open( goog.bind(function(newValues, oldValues) {
+
+		for (var i in oldValues) {
+
+			var name = this._observerDataNames[ i ];
+			var oldValue = oldValues[i];
+			var newValue = newValues[i];
+
+			console.log(name + ' changed from: ' + oldValue + ' to: ' + newValue);
+
+			this.handleDataChange( name, newValue, oldValue );
+		}
+
+	}, this) );
+};
+
+
+btr.controllers.basics.Control.prototype.stopObservation = function() {
+
+	this._observer.close();
+};
+
+
+btr.controllers.basics.Control.prototype.applyData = function() {
+
+	var data = this.model.getData();
+
+	goog.array.forEach(this._observerDataPaths, function(path, index) {
+		var name = this._observerDataNames[index];
+		var value = Path.get(path).getValueFrom(data);
+		this.handleDataChange( name, value );
     }, this);
 };
 
@@ -227,20 +270,7 @@ btr.controllers.basics.Control.prototype.handleContextMenu = function(e) {
 
 
 btr.controllers.basics.Control.prototype.handleDataChange = function( name, value, oldValue ) {
-};
 
-
-btr.controllers.basics.Control.prototype.onDataChange = function(changes) {
-
-	goog.array.forEach(changes, function(change) {
-
-		var name = change.name;
-		var value = change.object[change.name];
-		var oldValue = change.oldValue;
-
-        this.handleDataChange(name, value, oldValue);
-
-    }, this);
 };
 
 
@@ -258,9 +288,9 @@ btr.controllers.basics.Control.createComponentFromElement = function(element) {
 
 btr.controllers.basics.Control.createComponent = function(model, view, control, opt_rootElement) {
 
-	var mapping = btr.controllers.basics.Constructors.controls;
+	var mapping = btr.controllers.basics.Constructors.controllers;
 
-	var ctor = mapping[control] || btr.controllers.basics.Control;
+	var ctor = mapping[control];
 
 	var component = new ctor( model, view, opt_rootElement );
 

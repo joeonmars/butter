@@ -46,7 +46,6 @@ btr.controllers.elements.EditorWindow = function( model, view, opt_rootElement )
 		var el;
 
 		if(template) {
-			
 			el = soy.renderAsFragment( template, {
 				name: fieldId,
 				data: model.getDefaultData()[fieldId]
@@ -113,7 +112,7 @@ btr.controllers.elements.EditorWindow.prototype.onFieldChange = function(e) {
 	var value = e.target.value;
 	value = (e.target.getAttribute('type') === 'number') ? parseFloat(value) : value;
 
-	this.model.set(id, value);
+	this.model.setValue(id, value);
 };
 
 

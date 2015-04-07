@@ -24,6 +24,13 @@ btr.controllers.elements.BoardGroup = function( model, view, opt_rootElement ) {
 goog.inherits(btr.controllers.elements.BoardGroup, btr.controllers.basics.Element);
 
 
+btr.controllers.elements.BoardGroup.prototype.activateInternal = function() {
+
+	goog.base(this, 'activateInternal');
+	
+};
+
+
 btr.controllers.elements.BoardGroup.prototype.setIndex = function(index) {
 
 	this.model.set('index', index);

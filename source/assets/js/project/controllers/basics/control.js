@@ -33,6 +33,7 @@ btr.controllers.basics.Control = function( model, view, opt_rootElement ) {
 	//this.setSupportedState( goog.ui.Component.State.ALL, false );
 
 	this._isActive = false;
+	this._isInitialized = false;
 
 	this.isShortcutEnabled = this.isShortcutEnabled || false;
 
@@ -116,7 +117,11 @@ btr.controllers.basics.Control.prototype.enterDocument = function() {
 
     goog.base(this, 'enterDocument');
 
-	this.activate();
+		if(!this._isInitialized) {
+
+			this.initialize();
+			this._isInitialized = true;
+		}
 };
 
 
@@ -125,6 +130,10 @@ btr.controllers.basics.Control.prototype.exitDocument = function() {
     goog.base(this, 'exitDocument');
 
     this.deactivate();
+};
+
+
+btr.controllers.basics.Control.prototype.initialize = function() {
 };
 
 
@@ -291,6 +300,14 @@ btr.controllers.basics.Control.createComponent = function(model, view, control, 
 	var mapping = btr.controllers.basics.Constructors.controllers;
 
 	var ctor = mapping[control];
+
+	if(!ctor) {
+		if(goog.dom.classlist.contains(view, 'ui')) {
+			ctor = btr.controllers.basics.UI;
+		}else {
+			ctor = btr.controllers.basics.Control;
+		}
+	}
 
 	var component = new ctor( model, view, opt_rootElement );
 

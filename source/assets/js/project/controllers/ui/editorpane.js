@@ -19,13 +19,19 @@ btr.controllers.ui.EditorPane = function( model, view, opt_rootElement ) {
 goog.inherits(btr.controllers.ui.EditorPane, btr.controllers.basics.UI);
 
 
-btr.controllers.ui.EditorPane.prototype.activateInternal = function() {
+btr.controllers.ui.EditorPane.prototype.initialize = function() {
 
-	goog.base(this, 'activateInternal');
+	goog.base(this, 'initialize');
 
 	var element = this.getElement();
 	this._unfoldButton = this._unfoldButton || goog.dom.getElementByClass("unfold", element);
 	this._contentContainer = this._contentContainer || goog.dom.getElementByClass("content-container", element);
+};
+
+
+btr.controllers.ui.EditorPane.prototype.activateInternal = function() {
+
+	goog.base(this, 'activateInternal');
 
 	var handler = this.getHandler();
 	handler.listen( this._unfoldButton, goog.events.EventType.CLICK, this.onClickHandle, false, this );

@@ -7,10 +7,10 @@ goog.require('btr.controllers.globals.ResourceManager');
 goog.require('btr.controllers.globals.ShortcutManager');
 goog.require('btr.controllers.globals.NativeUIManager');
 goog.require('btr.controllers.globals.BoardManager');
+goog.require('btr.controllers.globals.ProjectManager');
 goog.require('btr.controllers.basics.Constructors');
 goog.require('btr.controllers.elements.BoardGroup');
 goog.require('btr.controllers.ui.ProjectContainer');
-goog.require('btr.models.Config');
 goog.require('btr.templates.Main');
 goog.require('btr.templates.Component');
 goog.require('btr.services.ImageExport');
@@ -30,8 +30,9 @@ btr.apps.ButterApp = function() {
 
 		console.log("APP LOADED.", json);
 
-		btr.config = btr.models.Config.getInstance();
 		btr.commonUtils = btr.utils.Common;
+
+		btr.projectManager = btr.controllers.globals.ProjectManager.getInstance();
 
 		btr.shortcuts = btr.controllers.globals.ShortcutManager.getInstance();
 
@@ -52,16 +53,8 @@ btr.apps.ButterApp = function() {
 		var projectContainer = new btr.controllers.ui.ProjectContainer('project-container', projectContainerEl);
 		projectContainer.enterDocument();
 
-		for(var i = 0; i < 1; i++) {
-
-			var boardGroup = new btr.controllers.elements.BoardGroup('board', 'board-group');
-			boardGroup.render( goog.dom.getElement('board-container') );
-
-			btr.boardManager.addBoard( boardGroup );
-		}
-
 		//btr.imageExport.exportFrom();
-		btr.htmlExport.exportFrom();
+		//btr.htmlExport.exportFrom();
 	});
 
 	btr.appLoader.load();

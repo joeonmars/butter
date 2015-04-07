@@ -16,8 +16,7 @@ btr.controllers.globals.ResourceManager = function() {
 	this.model.set('resources', []);
 
 	// create hidden inputs
-	this._workspaceResourcePath = './cache/workspace/resources/';
-	this._imagePath = 'images/';
+	this._projectResourcePath = './cache/projects/resources/';
 
 	this._imageInput = goog.dom.createDom('input', {
 		'type': 'file',
@@ -111,7 +110,7 @@ btr.controllers.globals.ResourceManager.prototype.onInputChange = function(e) {
 
 		var filePath = file['path'];
 		var fileName = file['name'];
-		var targetPath = this._workspaceResourcePath + this._imagePath + fileName;
+		var targetPath = this._projectResourcePath + fileType + '/' + fileName;
 
 		fs.copy(filePath, targetPath, function(error) {
 

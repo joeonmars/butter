@@ -43,6 +43,37 @@ btr.controllers.globals.NativeUIManager = function() {
 
 	var submenu = new GUI.Menu();
 
+	var newItem = new GUI.MenuItem({
+		label: 'New',
+		click: function() {
+			btr.projectManager.create();
+		}
+	});
+
+	var openItem = new GUI.MenuItem({
+		label: 'Open',
+		click: function() {
+		}
+	});
+
+	var saveItem = new GUI.MenuItem({
+		label: 'Save',
+		click: function() {
+		}
+	});
+
+	var saveAsItem = new GUI.MenuItem({
+		label: 'Save As',
+		click: function() {
+		}
+	});
+
+	var closeItem = new GUI.MenuItem({
+		label: 'Close',
+		click: function() {
+		}
+	});
+
 	var importResourceItem = new GUI.MenuItem({
 		label: 'Import Resource',
 		click: function() {
@@ -50,6 +81,11 @@ btr.controllers.globals.NativeUIManager = function() {
 		}
 	});
 
+	submenu.append( newItem );
+	submenu.append( openItem );
+	submenu.append( saveItem );
+	submenu.append( saveAsItem );
+	submenu.append( closeItem );
 	submenu.append( importResourceItem );
 	
 	item.submenu = submenu;

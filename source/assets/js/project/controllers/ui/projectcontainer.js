@@ -11,15 +11,29 @@ btr.controllers.ui.ProjectContainer = function( model, view, opt_rootElement ) {
 
 	goog.base( this, model, view, opt_rootElement );
 
+	this._projectInitializer = null;
+	this._projectWorkspace = null;
 };
 goog.inherits(btr.controllers.ui.ProjectContainer, btr.controllers.basics.UI);
+
+
+btr.controllers.ui.ProjectContainer.prototype.initialize = function() {
+
+	goog.base(this, 'initialize');
+
+	this._projectInitializer = this.getChild('project-initializer');
+	this._projectWorkspace = this.getChild('project-workspace');
+
+	this._projectInitializer.setVisible(false);
+	this._projectWorkspace.setVisible(false);
+};
 
 
 btr.controllers.ui.ProjectContainer.prototype.enterDocument = function() {
 
 	goog.base(this, 'enterDocument');
 
-	this.resize();
+	this.activate();
 };
 
 
@@ -28,28 +42,21 @@ btr.controllers.ui.ProjectContainer.prototype.activateInternal = function() {
 	goog.base(this, 'activateInternal');
 
 	var handler = this.getHandler();
-
-	var navigationPane = this.getChild('navigation-pane');
-	handler.listen( navigationPane, goog.events.EventType.CHANGE, this.resize, false, this );
-
-	var editorPane = this.getChild('editor-pane');
-	handler.listen( editorPane, goog.events.EventType.CHANGE, this.resize, false, this );
-
-	handler.listen( window, goog.events.EventType.RESIZE, this.resize, false, this );
+	handler.listen( btr.projectManager, btr.events.EventType.CREATE, this.onProjectCreate, false, this );
 };
 
 
-btr.controllers.ui.ProjectContainer.prototype.resize = function() {
+btr.controllers.ui.ProjectContainer.prototype.onProjectCreate = function(e) {
 
-	var navigationPane = this.getChild('navigation-pane');
-	var editorPane = this.getChild('editor-pane');
+	this._projectWorkspace.setVisible(true);
+	this._projectWorkspace.activate();
 
-	var navigationPaneWidth = navigationPane.getWidth();
-	var editorPaneWidth = editorPane.getWidth();
+	for(var i = 0; i < 1; i++) {
 
-	var totalWidth = goog.style.getSize(this.getElement()).width;
-	var boardPaneWidth = totalWidth - navigationPaneWidth - editorPaneWidth;
+		var boardGroup = new btr.controllers.elements.BoardGroup('board', 'board-group');
+		boardGroup.render( goog.dom.getElement('board-container') );
+		boardGroup.activate();
 
-	var boardPaneEl = this.getChild('board-pane').getElement();
-	goog.style.setStyle(boardPaneEl, 'width', boardPaneWidth+'px');
+		btr.boardManager.addBoard( boardGroup );
+	}
 };

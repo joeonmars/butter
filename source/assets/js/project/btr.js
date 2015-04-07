@@ -5,19 +5,14 @@ goog.require('btr.apps.Generation');
 goog.require('btr.apps.Test');
 
 
-btr.Config = {};
+btr.config = {};
 
 
 btr.init = function( config ) {
 
-	btr.Config = config;
-	
-	var uri = goog.Uri.parse( window.location );
-	if(uri.hasFragment()) {
-		btr.Config['app'] = 'redirect';
-	}
+	btr.config = config;
 
-	switch(btr.Config['app']) {
+	switch(btr.config['app']) {
 		case 'butterapp':
 		btr.apps.ButterApp();
 		break;

@@ -83,6 +83,14 @@ btr.controllers.elements.EditorWindow.prototype.activateInternal = function() {
 };
 
 
+btr.controllers.elements.EditorWindow.prototype.enterDocument = function() {
+
+	goog.base(this, 'enterDocument');
+
+	this.activate();
+};
+
+
 btr.controllers.elements.EditorWindow.prototype.togglePanel = function() {
 
 	if(goog.dom.classlist.contains(this.getElement(), 'hide-property')) {

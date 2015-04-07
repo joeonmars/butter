@@ -40,7 +40,7 @@ btr.services.webservices.WebServiceServer.prototype.createServer = function() {
 	var app = express();
 
 	// configure Express
-	app.set('views', btr.Config.assetsPath + '/views');
+	app.set('views', btr.config.assetsPath + 'views');
 	app.set('view engine', 'ejs');
 
 	app.use(session({
@@ -53,7 +53,7 @@ btr.services.webservices.WebServiceServer.prototype.createServer = function() {
 	// persistent login sessions (recommended).
 	app.use(passport.initialize());
 	app.use(passport.session());
-	//app.use(express.static(btr.Config.assetsPath + '/public'));
+	//app.use(express.static(btr.config.assetsPath + 'public'));
 
 	this.facebook = new btr.services.webservices.Facebook(app);
 	this.instagram = new btr.services.webservices.Instagram(app);

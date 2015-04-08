@@ -11,6 +11,7 @@ goog.require('btr.controllers.ui.EditorPane');
 goog.require('btr.controllers.ui.NavigationPane');
 goog.require('btr.controllers.ui.BoardPane');
 goog.require('btr.controllers.ui.ProjectContainer');
+goog.require('btr.controllers.ui.ProjectCreator');
 goog.require('btr.controllers.ui.ProjectWorkspace');
 
 
@@ -22,6 +23,7 @@ btr.controllers.basics.Constructors = {
 		'grid': btr.controllers.elements.Grid,
 		'editor-window': btr.controllers.elements.EditorWindow,
 		'project-container': btr.controllers.ui.ProjectContainer,
+		'project-creator': btr.controllers.ui.ProjectCreator,
 		'project-workspace': btr.controllers.ui.ProjectWorkspace,
 		'navigation-pane': btr.controllers.ui.NavigationPane,
 		'board-pane': btr.controllers.ui.BoardPane,

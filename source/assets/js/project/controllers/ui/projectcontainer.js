@@ -11,7 +11,7 @@ btr.controllers.ui.ProjectContainer = function( model, view, opt_rootElement ) {
 
 	goog.base( this, model, view, opt_rootElement );
 
-	this._projectInitializer = null;
+	this._projectCreator = null;
 	this._projectWorkspace = null;
 };
 goog.inherits(btr.controllers.ui.ProjectContainer, btr.controllers.basics.UI);
@@ -21,10 +21,10 @@ btr.controllers.ui.ProjectContainer.prototype.initialize = function() {
 
 	goog.base(this, 'initialize');
 
-	this._projectInitializer = this.getChild('project-initializer');
+	this._projectCreator = this.getChild('project-creator');
 	this._projectWorkspace = this.getChild('project-workspace');
 
-	this._projectInitializer.setVisible(false);
+	this._projectCreator.setVisible(false);
 	this._projectWorkspace.setVisible(false);
 };
 
@@ -48,6 +48,7 @@ btr.controllers.ui.ProjectContainer.prototype.activateInternal = function() {
 
 btr.controllers.ui.ProjectContainer.prototype.onProjectCreate = function(e) {
 
+	/*
 	this._projectWorkspace.setVisible(true);
 	this._projectWorkspace.activate();
 
@@ -59,4 +60,9 @@ btr.controllers.ui.ProjectContainer.prototype.onProjectCreate = function(e) {
 
 		btr.boardManager.addBoard( boardGroup );
 	}
+	*/
+
+	this._projectCreator.setVisible(true);
+	this._projectCreator.activate();
+	this._projectCreator.setProject( e.project, e.done, e.cancel );
 };

@@ -4,7 +4,7 @@ goog.addDependency('../../../../project/apps/butterapp.js', ['btr.apps.ButterApp
 goog.addDependency('../../../../project/apps/generation.js', ['btr.apps.Generation'], ['btr.templates.Generation', 'goog.dom', 'goog.fx.anim']);
 goog.addDependency('../../../../project/apps/test.js', ['btr.apps.Test'], ['btr.controllers.test.Control', 'btr.templates.Test', 'goog.dom', 'goog.dom.query']);
 goog.addDependency('../../../../project/btr.js', ['btr'], ['btr.apps.ButterApp', 'btr.apps.Generation', 'btr.apps.Test']);
-goog.addDependency('../../../../project/controllers/basics/constructors.js', ['btr.controllers.basics.Constructors'], ['btr.controllers.basics.Control', 'btr.controllers.basics.UI', 'btr.controllers.elements.Board', 'btr.controllers.elements.BoardGroup', 'btr.controllers.elements.EditorWindow', 'btr.controllers.elements.Grid', 'btr.controllers.ui.BoardPane', 'btr.controllers.ui.EditorPane', 'btr.controllers.ui.NavigationPane', 'btr.controllers.ui.ProjectContainer', 'btr.controllers.ui.ProjectWorkspace', 'btr.templates.Component']);
+goog.addDependency('../../../../project/controllers/basics/constructors.js', ['btr.controllers.basics.Constructors'], ['btr.controllers.basics.Control', 'btr.controllers.basics.UI', 'btr.controllers.elements.Board', 'btr.controllers.elements.BoardGroup', 'btr.controllers.elements.EditorWindow', 'btr.controllers.elements.Grid', 'btr.controllers.ui.BoardPane', 'btr.controllers.ui.EditorPane', 'btr.controllers.ui.NavigationPane', 'btr.controllers.ui.ProjectContainer', 'btr.controllers.ui.ProjectCreator', 'btr.controllers.ui.ProjectWorkspace', 'btr.templates.Component']);
 goog.addDependency('../../../../project/controllers/basics/container.js', ['btr.controllers.basics.Container'], ['btr.controllers.basics.ContainerRenderer', 'goog.ui.Container']);
 goog.addDependency('../../../../project/controllers/basics/containerrenderer.js', ['btr.controllers.basics.ContainerRenderer'], ['goog.ui.ContainerRenderer']);
 goog.addDependency('../../../../project/controllers/basics/control.js', ['btr.controllers.basics.Control'], ['btr.controllers.basics.ControlRenderer', 'btr.models.Model', 'goog.array', 'goog.dom', 'goog.style', 'goog.ui.Control']);
@@ -33,6 +33,7 @@ goog.addDependency('../../../../project/controllers/ui/boardpane.js', ['btr.cont
 goog.addDependency('../../../../project/controllers/ui/editorpane.js', ['btr.controllers.ui.EditorPane'], ['btr.controllers.basics.UI', 'goog.dom.classlist', 'goog.style']);
 goog.addDependency('../../../../project/controllers/ui/navigationpane.js', ['btr.controllers.ui.NavigationPane'], ['btr.controllers.basics.UI', 'goog.dom.classlist', 'goog.style']);
 goog.addDependency('../../../../project/controllers/ui/projectcontainer.js', ['btr.controllers.ui.ProjectContainer'], ['btr.controllers.basics.UI']);
+goog.addDependency('../../../../project/controllers/ui/projectcreator.js', ['btr.controllers.ui.ProjectCreator'], ['btr.controllers.basics.UI', 'btr.templates.Main']);
 goog.addDependency('../../../../project/controllers/ui/projectworkspace.js', ['btr.controllers.ui.ProjectWorkspace'], ['btr.controllers.basics.UI']);
 goog.addDependency('../../../../project/events/eventtype.js', ['btr.events'], []);
 goog.addDependency('../../../../project/models/model.js', ['btr.models.Model'], ['goog.Disposable', 'goog.json.Serializer', 'goog.object']);

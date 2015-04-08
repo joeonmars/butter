@@ -1,6 +1,7 @@
 goog.provide('btr.models.Model');
 
 goog.require('goog.Disposable');
+goog.require('goog.format.JsonPrettyPrinter');
 goog.require('goog.object');
 goog.require('goog.json.Serializer');
 
@@ -90,9 +91,11 @@ btr.models.Model.prototype.deserialize = function(opt_str) {
 };
 
 
-btr.models.Model.prototype.serialize = function() {
+btr.models.Model.prototype.serialize = function(pretty) {
 
-	return btr.models.Model.Serializer.serialize(this._data);
+	var str = btr.models.Model.Serializer.serialize(this._data);
+
+	return pretty ? btr.models.Model.Printer.format(str) : str;
 };
 
 
@@ -103,3 +106,4 @@ btr.models.Model.prototype.clone = function(name) {
 
 
 btr.models.Model.Serializer = new goog.json.Serializer();
+btr.models.Model.Printer = new goog.format.JsonPrettyPrinter();

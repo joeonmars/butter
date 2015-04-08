@@ -2,6 +2,8 @@ goog.provide('btr.controllers.globals.ResourceManager');
 
 goog.require('goog.array');
 goog.require('goog.dom');
+goog.require('goog.events.FileDropHandler');
+goog.require('goog.string');
 goog.require('btr.controllers.basics.Controller');
 
 /**
@@ -16,8 +18,6 @@ btr.controllers.globals.ResourceManager = function() {
 	this.model.set('resources', []);
 
 	// create hidden inputs
-	this._projectResourcePath = './cache/projects/resources/';
-
 	this._imageInput = goog.dom.createDom('input', {
 		'type': 'file',
 		'multiple': true,
@@ -27,6 +27,10 @@ btr.controllers.globals.ResourceManager = function() {
 	});
 
 	goog.events.listen(this._imageInput, goog.events.EventType.CHANGE, this.onInputChange, false, this);
+
+	// create file dragg handler
+	this._fileDragHandler = new goog.events.FileDropHandler(document, true);
+	goog.events.listen(this._fileDragHandler, goog.events.FileDropHandler.EventType.DROP, this.onFileDrop, false, this);
 };
 goog.inherits(btr.controllers.globals.ResourceManager, btr.controllers.basics.Controller);
 goog.addSingletonGetter(btr.controllers.globals.ResourceManager);
@@ -97,32 +101,41 @@ btr.controllers.globals.ResourceManager.prototype.handleCopiedFile = function(fi
 };
 
 
+btr.controllers.globals.ResourceManager.prototype.copyFile = function(filePath, fileName, fileType) {
+
+	var fs = require('fs-extra');
+	var handleCopiedFile = goog.bind(this.handleCopiedFile, this);
+
+	var projectCachePath = btr.projectManager.getCurrentProject().getData()['cachePath'];
+	var targetPath = projectCachePath + 'resources/' + fileType + '/' + fileName;
+
+	fs.copy(filePath, targetPath, function(error) {
+
+		if (error) {
+
+			return console.error(error);
+
+		}else {
+
+			handleCopiedFile(fileName, fileType, targetPath);
+		}
+	});
+};
+
+
 btr.controllers.globals.ResourceManager.prototype.onInputChange = function(e) {
 
 	var value = e.target.value;
 	var files = e.target['files'];
 	var fileType = e.target.getAttribute('data-type');
 
-	var fs = require('fs-extra');
-	var handleCopiedFile = goog.bind(this.handleCopiedFile, this);
-
 	goog.array.forEach(files, function(file) {
 
-		var filePath = file['path'];
 		var fileName = file['name'];
-		var targetPath = this._projectResourcePath + fileType + '/' + fileName;
+		var filePath = file['path'];
 
-		fs.copy(filePath, targetPath, function(error) {
+		this.copyFile(filePath, fileName, fileType);
 
-			if (error) {
-
-				return console.error(error);
-
-			}else {
-
-				handleCopiedFile(fileName, fileType, targetPath);
-			}
-		});
 	}, this);
 
 	/* should save this to local storage
@@ -134,6 +147,34 @@ btr.controllers.globals.ResourceManager.prototype.onInputChange = function(e) {
 
 	// reset input value to enable a change event on the same folder
 	e.target.value = '';
+};
+
+
+btr.controllers.globals.ResourceManager.prototype.onFileDrop = function(e) {
+
+	var browserEvent = e.getBrowserEvent();
+	var files = browserEvent.dataTransfer.files;
+
+	var imageFiles = goog.array.filter(files, function(file) {
+		return goog.string.contains( file.type, 'image' );
+	});
+
+	if(imageFiles.length > 0) {
+
+		goog.array.forEach(imageFiles, function(file) {
+
+			var fileName = file['name'];
+			var fileType = btr.controllers.globals.ResourceManager.Type.IMAGE;
+			var filePath = file['path'];
+
+			this.copyFile(filePath, fileName, fileType);
+
+		}, this);
+
+	}else {
+
+		console.log('No image files found...');
+	}
 };
 
 

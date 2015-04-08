@@ -56,10 +56,30 @@ btr.controllers.basics.Control.prototype.createDom = function( view, opt_rootEle
 
 btr.controllers.basics.Control.prototype.createChildComponents = function() {
 
-	// only get the immediate component elements by classname
+	// Check the element structure recursively to get
+	// the most immediate component elements by classname
 	var cssClass = this.getRenderer().getCssClass();
+	var componentEls = [];
 
-	var componentEls = goog.dom.query('> .' + cssClass, this.getElement());
+	var parseComponentElements = function(el) {
+
+		var children = goog.dom.getChildren(el);
+		if(children.length === 0) {
+			return;
+		}
+
+		var results = goog.dom.query('> .' + cssClass, el);
+
+		if(results.length === 0) {
+			goog.array.forEach(children, function(child) {
+				parseComponentElements(child);
+			});
+		}else {
+			componentEls.push.apply( componentEls, results );
+		}
+	};
+
+	parseComponentElements( this.getElement() );
 
 	goog.array.forEach( componentEls, function(el) {
 

@@ -36,8 +36,6 @@ btr.apps.ButterApp = function() {
 
 		btr.shortcuts = btr.controllers.globals.ShortcutManager.getInstance();
 
-		btr.nativeUI = btr.controllers.globals.NativeUIManager.getInstance();
-
 		btr.resources = btr.controllers.globals.ResourceManager.getInstance();
 
 		btr.imageExport = btr.services.ImageExport.getInstance();
@@ -47,6 +45,8 @@ btr.apps.ButterApp = function() {
 		//btr.webServices.facebook.login();
 
 		btr.boardManager = btr.controllers.globals.BoardManager.getInstance();
+
+		btr.nativeUI = btr.controllers.globals.NativeUIManager.getInstance();
 
 		// test
 		var projectContainerEl = goog.dom.getElement('project-container');

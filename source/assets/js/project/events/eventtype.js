@@ -5,6 +5,7 @@ goog.provide('btr.events');
  */
 btr.events.EventType = {
 	CREATE: 'create',
+	CREATE_COMPLETE: 'create_complete',
 	LOAD: 'load',
 	LOAD_COMPLETE: 'load_complete',
 	ANIMATE_IN: 'animate_in',

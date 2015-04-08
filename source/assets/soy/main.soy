@@ -10,7 +10,7 @@
 
 	<div id="project-container" class="ui" data-model="project-container" data-control="project-container">
 
-		<div id="project-initializer" class="ui" data-model="project-initializer">
+		<div id="project-creator" class="ui" data-model="project-creator" data-control="project-creator">
 		</div>
 
 		<div id="project-workspace" class="ui" data-model="project-workspace" data-control="project-workspace">
@@ -38,18 +38,20 @@
 
 
 /**
- * New document dialog box
+ * Project creator content
+ * @param data The default data
  */
-{template .NewDocumentDialog}
-<div id="new-document-dialog">
-	<label>Create a new butter document</label>
+{template .ProjectCreator}
+<div class="dialog">
+	<label>Create a new document</label>
 	<fieldset>
-		width: <input type="number" step="1" value="">
-		height: <input type="number" step="1" value="">
+		title: <input type="text" name="title" value="{ $data['title'] }">
+		width: <input type="number" name="width" step="1" value="{ $data['width']['value'] }" min="{ $data['width']['min'] }" max="{ $data['width']['max'] }">
+		height: <input type="number" name="height" step="1" value="{ $data['height']['value'] }" min="{ $data['height']['min'] }" max="{ $data['height']['max'] }">
 	</fieldset>
 	<fieldset>
-		<button class="confirm"></button>
-		<button class="cancel"></button>
+		<button class="ok">OK</button>
+		<button class="cancel">Cancel</button>
 	</fieldset>
 </div>
 {/template}

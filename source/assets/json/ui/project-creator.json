@@ -1,0 +1,16 @@
+{
+	"name": "project-creator",
+	"data": {
+		"title": "Untitled",
+		"width": {
+			"value": 960,
+			"min": 10,
+			"max": 10000
+		},
+		"height": {
+			"value": 720,
+			"min": 10,
+			"max": 10000
+		}
+	}
+}

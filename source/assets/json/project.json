@@ -2,19 +2,10 @@
 	"name": "project",
 	"data": {
 		"id": null,
+		"cachePath": null,
+		"filePath": null,
 		"title": null,
-		"defaultSize": {
-			"width": {
-				"min": 100,
-				"max": 10000,
-				"value": 960
-			},
-			"height": {
-				"min": 100,
-				"max": 10000,
-				"value": 720
-			}
-		},
-		"path": null
+		"width": null,
+		"height": null
 	}
 }

@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "fs-extra": "~0.17.0",
+    "adm-zip": ">= 0.0.0",
     "pageres": "~1.2.2",
     "js-beautify": "~1.5.5",
     "serve-static": ">= 0.0.0",

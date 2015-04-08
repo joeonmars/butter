@@ -22,17 +22,16 @@ main{
 		z-index: 0;
 		width: 100%;
 		height: 100%;
-		font-size: 0;
-		white-space: nowrap;
 		overflow: hidden;
 
 		#project-initializer{
-			display: none;
 			height: 100%;
 		}
 
 		#project-workspace{
 			height: 100%;
+			font-size: 0;
+			white-space: nowrap;
 		}
 
 	  #navigation-pane{

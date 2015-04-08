@@ -1,6 +1,8 @@
 goog.provide('btr.controllers.globals.NativeUIManager');
 
 goog.require('goog.events');
+goog.require('goog.async.Deferred');
+goog.require('goog.async.DeferredList');
 goog.require('btr.controllers.globals.ShortcutManager');
 
 /**
@@ -22,10 +24,27 @@ btr.controllers.globals.NativeUIManager = function() {
 
 	guiWindow.show();
 	
-	guiWindow.on('close', function(){
-	   GUI.App.quit();
+	// handle window close
+	var clearCache = new goog.async.Deferred( null, btr.projectManager );
+	clearCache.addCallback( btr.projectManager.clearCache );
+
+	var list = [clearCache];
+
+	var deferredList = goog.async.DeferredList.gatherResults( list, false, true );
+
+	deferredList.addCallback(function() {
+		GUI.App.quit();
+		guiWindow.close(true);
 	});
 
+	guiWindow.on('close', function(){
+	   goog.array.forEach(list, function(deferred) {
+			deferred.callback();
+		});
+	   return false;
+	});
+
+	//
 	var shortcuts = btr.controllers.globals.ShortcutManager.getInstance();
 	shortcuts.register('show-devtools', function(){
 		if(!guiWindow.isDevToolsOpen()) {
@@ -53,12 +72,14 @@ btr.controllers.globals.NativeUIManager = function() {
 	var openItem = new GUI.MenuItem({
 		label: 'Open',
 		click: function() {
+			btr.projectManager.open();
 		}
 	});
 
 	var saveItem = new GUI.MenuItem({
 		label: 'Save',
 		click: function() {
+			btr.projectManager.save();
 		}
 	});
 

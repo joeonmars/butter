@@ -14,7 +14,7 @@ goog.require('soydata');
  * @notypecheck
  */
 btr.templates.Component.Board = function(opt_data, opt_ignored) {
-  return '<section class="component board-view" data-model="board" data-control="board-group"><div class="component board" data-model="board" data-control="board"><div class="layer elements"></div><div class="layer component grid" data-model="grid" data-control="grid"></div><div class="layer selection"></div>' + btr.templates.Component.EditorWindow(opt_data) + '</div></section>';
+  return '<section class="component board-view" data-model="board" data-control="board-group"><div class="board"><div class="layer elements"></div><div class="layer component grid" data-model="grid" data-control="grid"></div><div class="layer selection"></div>' + btr.templates.Component.EditorWindow(opt_data) + '</div></section>';
 };
 
 

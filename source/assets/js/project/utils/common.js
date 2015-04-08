@@ -20,6 +20,8 @@ btr.utils.Common.escapeConsole = function() {
   for(var i=0;i<methods.length;i++){
     console[methods[i]] = function(){};
   }
+
+  this._jsonPrinter = new goog.format.JsonPrettyPrinter();
 };
 
 

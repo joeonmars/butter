@@ -17,6 +17,7 @@ btr.controllers.globals.AppLoader = function(callback) {
 		'json/project.json',
 		'json/components/board.json',
 		'json/components/grid.json',
+		'json/ui/project-creator.json',
 		'json/resources/image.json',
 		'json/resources/video.json'
 	];
